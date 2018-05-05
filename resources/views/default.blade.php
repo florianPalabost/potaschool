@@ -13,6 +13,7 @@
     <!-- Bootstrap core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('resources/assets/css/side-bar.css')}}" rel="stylesheet">
+    <link href="{{ asset('resources/assets/css/open-iconic-bootstrap.css')}}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <style>
@@ -24,6 +25,9 @@
           padding-top: 56px;
         }
       }
+      #menu-toggle{
+        margin-right:1%;
+      }
 
     </style>
     @yield('css')
@@ -34,6 +38,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
+      <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle"><span class="oi oi-menu" title="oi-menu" aria-hidden="true"></span>
         <a class="navbar-brand" href="{{ url('/') }}">PotaSchool</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -110,7 +115,8 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
       <div class="container" style="margin-top:60px">
-      <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
+      
+</span></a>
         @yield('content')
       </div>
     </div>
