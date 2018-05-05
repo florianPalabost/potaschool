@@ -17,6 +17,7 @@
                     You are logged in!
                 </div>
             </div>
+            Mon profil
         </div>
     </div>
 </div>

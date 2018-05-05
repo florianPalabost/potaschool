@@ -16,7 +16,7 @@ class FrontController extends Controller
         return view('front/contact');
     }
 
-    public function aPropos(){
-        return view('front/aPropos');
+    public function wiki(){
+        return view('front/wiki');
     }
 }

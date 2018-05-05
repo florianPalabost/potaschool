@@ -12,11 +12,12 @@
 
     <!-- Bootstrap core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('resources/assets/css/side-bar.css')}}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <style>
       body {
-        padding-top: 54px;
+        /*padding-top: 54px;*/
       }
       @media (min-width: 992px) {
         body {
@@ -45,7 +46,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">A Propos</a>
+              <a class="nav-link" href="{{ url('/wiki') }}">Wiki</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Contact</a>
@@ -57,7 +58,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/home') }}">Mon Profil</a>
                         {{ Form::open(array('url' => '/logout','style'=>'display: inline-block;')) }}
                         {{ Form::button('Se déconnecter', array('class'=>'btn btn-danger deco', 'type'=>'submit')) }}
                         {{ Form::close() }}
@@ -71,14 +72,58 @@
         </div>
     </nav>
 
+       @if (Route::has('login'))
+       <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Start Bootstrap
+                    </a>
+                </li>
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#">Shortcuts</a>
+                </li>
+                <li>
+                    <a href="#">Overview</a>
+                </li>
+                <li>
+                    <a href="#">Events</a>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+                <li>
+                    <a href="#">Services</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        @endif
     <!-- Page Content -->
-    <div class="container" style="margin-top:60px">
-      @yield('content')
+    <div id="page-content-wrapper">
+      <div class="container" style="margin-top:60px">
+      <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
+        @yield('content')
+      </div>
     </div>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{asset('resources/assets/js/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('resources/assets/js/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script>
+       $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
     @yield('script')
   </body>
 </html>

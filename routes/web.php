@@ -11,9 +11,12 @@
 |
 */
 
-
+// Route côté front
 Route::get('/',['as'=>'index','uses'=>'Front\FrontController@index']);
+Route::get('/wiki',['as'=>'wiki','uses'=>'Front\FrontController@wiki']);
+
 
 Auth::routes();
 
+// Route en mode Connecté 
 Route::get('/home', 'HomeController@index')->name('home');
