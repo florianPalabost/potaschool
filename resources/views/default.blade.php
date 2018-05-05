@@ -58,9 +58,13 @@
                 <div class="top-right links">
                     @if (Auth::check())
                         <a href="{{ url('/home') }}">Home</a>
+                        {{ Form::open(array('url' => '/logout','style'=>'display: inline-block;')) }}
+                        {{ Form::button('Se déconnecter', array('class'=>'btn btn-danger deco', 'type'=>'submit')) }}
+                        {{ Form::close() }}
+
                     @else
-                        <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
+                        <a href="{{ url('/login') }}">Se Connecter</a>
+                        <a href="{{ url('/register') }}">S'enregistrer</a>
                     @endif
                 </div>
             @endif
