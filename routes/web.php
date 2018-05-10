@@ -14,6 +14,7 @@
 // Route côté front
 Route::get('/',['as'=>'index','uses'=>'Front\FrontController@index']);
 Route::get('/wiki',['as'=>'wiki','uses'=>'Front\FrontController@wiki']);
+Route::get('/cours/matiere', 'Cours/MatiereController@matiere')->name('matiere');
 
 
 Auth::routes();
