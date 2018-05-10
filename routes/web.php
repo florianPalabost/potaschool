@@ -24,6 +24,7 @@ Route::resource('eleves','Users\ElevesController',['except' => ['show','index']]
 
 //route enseignant
 Route::get('/dashboard','Users\EnseignantsController@showDashboard')->name('dashboard');
+Route::resource('classes','ClassesController');
 
 // Route pour le test de depart 
 Route::get('/testDepart','Users\ElevesController@showTestDepart')->name('testDepart');
