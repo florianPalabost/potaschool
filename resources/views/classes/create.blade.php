@@ -1,4 +1,4 @@
-@extends('default')
+@extends('defaultEnseignant')
 @section('content')
 <h1>Création d'une classe</h1>
 <div class="col-md-12">
@@ -12,8 +12,21 @@
     </span>
     @endif
 </div>
+<div class="form-group{{ $errors->has('statut') ? ' has-error' : '' }}">
+    {!! Form::label('label', 'Statut*') !!}
+    {!! Form::select('statut', [
+   'public' => 'Public',
+   'prive' => 'Privé',
+    ]
+) !!}
+    @if ($errors->has('statut'))
+        <span class="help-block">
+        <strong>{{ $errors->first('statut') }}</strong>
+    </span>
+    @endif
+</div>
 <div class="form-group{{ $errors->has('nom') ? ' has-error' : '' }}">
-    {!!Form::label('label', 'Rang*') !!}
+    {!!Form::label('label', 'Niveau*') !!}
     {!! Form::select('rang', [
    'cp' => 'CP',
    'ce1' => 'CE1',
@@ -26,8 +39,9 @@
     @endif
     </div>
 
-    {!! Form::hidden('invisible', 'secret') !!}
+    {!! Form::hidden('responsable', $user->id) !!}
+    <button class="btn btn-primary" id="btnEnvoyer">Ajouter</button>
+    {!! Form::close() !!}
 </div>
-
 
 @endsection

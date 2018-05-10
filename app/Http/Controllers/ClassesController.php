@@ -16,11 +16,17 @@ class ClassesController extends Controller
 
     // return view form to create a class
     public function create(){
-        return view('classes.create');
+        $user = session('user');
+        return view('classes.create',compact('user'));
     }
     
     // verify infos & store in database
     public function store(Request $request){
-        dd($request);
+       // dd($request->get('nom'));
+       $this->validate($request,[
+        'nom'=>'required',
+        'imgPrinc'=>'required',
+        'annee'=>'required'
+    ]);
     }
 }

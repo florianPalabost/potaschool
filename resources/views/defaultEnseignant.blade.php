@@ -86,6 +86,12 @@
                 <li class="sidebar-brand">
                 <a href="{{ url('/profil') }}">Mon Profil</a>
                 </li>
+                <li>
+                    <a href="{{url('/dashboard') }}">Dashboard</a>
+                </li>
+                <li>
+                    <a href="{{url('/classes')}}">Mes Classes</a>
+                </li>
             @endif
             </ul>
         </div>
