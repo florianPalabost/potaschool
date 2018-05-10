@@ -19,4 +19,14 @@ Route::get('/wiki',['as'=>'wiki','uses'=>'Front\FrontController@wiki']);
 Auth::routes();
 
 // Route en mode Connecté 
+Route::get('/profil','Users\ElevesController@getProfil')->name('monprofil');
+Route::resource('eleves','Users\ElevesController',['except' => ['show','index']]);
+
+//route enseignant
+Route::get('/dashboard','Users\EnseignantsController@showDashboard')->name('dashboard');
+
+// Route pour le test de depart 
+Route::get('/testDepart','Users\ElevesController@showTestDepart')->name('testDepart');
+Route::post('/testDepart','Users\ElevesController@storeTestDepart')->name('storeTestDepart');
+
 Route::get('/home', 'HomeController@index')->name('home');
