@@ -25,21 +25,21 @@
     </span>
     @endif
 </div>
-<div class="form-group{{ $errors->has('nom') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has('niveau') ? ' has-error' : '' }}">
     {!!Form::label('label', 'Niveau*') !!}
-    {!! Form::select('rang', [
+    {!! Form::select('niveau', [
    'cp' => 'CP',
    'ce1' => 'CE1',
    'ce2' => 'CE2']
 ) !!}
-    @if ($errors->has('rang'))
+    @if ($errors->has('niveau'))
         <span class="help-block">
-        <strong>{{ $errors->first('rang') }}</strong>
+        <strong>{{ $errors->first('niveau') }}</strong>
     </span>
     @endif
     </div>
 
-    {!! Form::hidden('responsable', $user->id) !!}
+    {!! Form::hidden('responsable', $user['nom']) !!}
     <button class="btn btn-primary" id="btnEnvoyer">Ajouter</button>
     {!! Form::close() !!}
 </div>

@@ -20,6 +20,7 @@ Auth::routes();
 
 // Route en mode Connecté 
 Route::get('/profil','Users\ElevesController@getProfil')->name('monprofil');
+
 Route::resource('eleves','Users\ElevesController',['except' => ['show','index']]);
 
 //route enseignant

@@ -14,6 +14,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('resources/assets/css/side-bar.css')}}" rel="stylesheet">
     <link href="{{ asset('resources/assets/css/open-iconic-bootstrap.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
     <style>
@@ -76,7 +77,17 @@
             @endif
         </div>
     </nav>
-
+    @if(Session::has('flash_message'))
+    <div class="alert alert-success alert-dismissible" style="margin-top:65px">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+        {{ Session::get('flash_message') }}
+    </div>
+@elseif(Session::has('flash_error'))
+    <div class="alert alert-danger alert-dismissible"  style="margin-top:65px">{{ Session::get('flash_error') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    @endif
+    
        @if (Route::has('login'))
        <div id="wrapper">
         <!-- Sidebar -->
@@ -90,8 +101,24 @@
                     <a href="{{url('/dashboard') }}">Dashboard</a>
                 </li>
                 <li>
-                    <a href="{{url('/classes')}}">Mes Classes</a>
+                    <a href="{{route('classes.index')}}">Mes Classes</a>
                 </li>
+                <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <li class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><i class="fas fa-plus"></i> Mes Classes</a></li>
+            </div>
+            <li><div id="collapseOne" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <a href="{{route('classes.index')}}">Toute les classes</a>
+                    @foreach(session('classesEnseignant') as $classe)
+                    <a href="{{route('classes.show',$classe['id'])}}">{{$classe['nom']}}</a>
+                    @endforeach
+                </div>
+            </div>
+            </li>
+        </div>
+    </div>
             @endif
             </ul>
         </div>
@@ -114,6 +141,16 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+    $(".collapse.in").each(function(){
+        	$(this).siblings(".panel-heading").find(".fas").addClass("fa-minus").removeClass("fa-plus");
+        });
+        
+        // Toggle plus minus icon on show hide of collapse element
+        $(".collapse").on('show.collapse', function(){
+        	$(this).removeClass("fa-plus").addClass("fa-minus");
+        }).on('hide.collapse', function(){
+        	$(this).parent().find(".fas").removeClass("fa-minus").addClass("fa-plus");
+        });
 </script>
     @yield('script')
   </body>

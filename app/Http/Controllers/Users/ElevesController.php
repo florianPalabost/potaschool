@@ -9,8 +9,9 @@ class ElevesController extends Controller
 {
     // route : /profil
     public function getProfil(Request $request){
-        $eleve = $request->user()->getAttributes();
-        return view('users/monprofil',compact('eleve'));
+        $user = $request->user()->getAttributes();
+
+        return view('users/monprofil',compact('user'));
     }
 
     //route : /testDepart
