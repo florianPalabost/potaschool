@@ -36,6 +36,8 @@ Route::group(['prefix' => 'cours'],function(){
     Route::post('/matiere/add','Cours\MatiereController@save')->name('saveMatiere');
     Route::get('/matiere/{id}','Cours\MatiereController@get')->where('id','[0-9]+')->name('seeMatiere');
 
+    Route::resource('module','Cours\ModuleController');
+
 });
 
 // Route pour le test de depart
