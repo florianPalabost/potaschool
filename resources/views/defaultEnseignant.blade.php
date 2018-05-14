@@ -66,7 +66,7 @@
                     @if (Auth::check())
                        
                         {{ Form::open(array('url' => '/logout','style'=>'display: inline-block;')) }}
-                        {{ Form::button('Se déconnecter', array('class'=>'btn btn-danger deco', 'type'=>'submit')) }}
+                        <button type="submit" class="btn btn-danger deco" name="deconnexion">Se Déconnecter <i class="fas fa-power-off"></i></button>
                         {{ Form::close() }}
 
                     @else
