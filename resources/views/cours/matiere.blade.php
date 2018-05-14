@@ -1,8 +1,19 @@
 @extends('default')
+
 @section('content')
-  <div class="row">
-    <h1>Matiere</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, tenetur laudantium aut ex sapiente, eveniet quod enim eius dolorem velit cupiditate voluptatem culpa similique deserunt libero sequi sed! Quae, amet!
+    <h1>{{$title}}</h1>
+    <p>
+      Voici la liste actuelle des matières disponibles :
     </p>
-  </div>
+    <ul>
+      @forelse($list as $matiere)
+        <li>{{$matiere->name}}</li>
+      @empty
+        <li>Aucune Matière</li>
+      @endforelse
+    </ul>
+@endsection
+
+@section('title')
+  PotaSchool - Matières
 @endsection

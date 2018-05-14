@@ -8,7 +8,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>PotaSchool</title>
+    <title>
+      @section('title')
+        PotaSchool
+      @show
+    </title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
@@ -63,7 +67,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @if (Auth::check())
-                       
+
                         {{ Form::open(array('url' => '/logout','style'=>'display: inline-block;')) }}
                         {{ Form::button('Se déconnecter', array('class'=>'btn btn-danger deco', 'type'=>'submit')) }}
                         {{ Form::close() }}
@@ -95,7 +99,7 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
       <div class="container" style="margin-top:60px">
-      
+
 </span></a>
         @yield('content')
       </div>
@@ -113,4 +117,3 @@
     @yield('script')
   </body>
 </html>
-
