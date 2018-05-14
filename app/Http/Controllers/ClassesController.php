@@ -53,6 +53,7 @@ class ClassesController extends Controller
     public function show($idClasse){
         //dd($idClasse);
         $classe = Classe::findOrFail($idClasse);
+        session(['classe' => $classe]);
         //dd($classe->nom);
         return view('classes.show',compact('classe'));
     }

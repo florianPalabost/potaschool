@@ -21,11 +21,12 @@ Auth::routes();
 // Route en mode Connecté 
 Route::get('/profil','Users\ElevesController@getProfil')->name('monprofil');
 
-Route::resource('eleves','Users\ElevesController',['except' => ['show','index']]);
+Route::resource('eleves','Users\ElevesController');
 
 //route enseignant
 Route::get('/dashboard','Users\EnseignantsController@showDashboard')->name('dashboard');
 Route::resource('classes','ClassesController');
+Route::get('medicaments/rech','Users\ElevesController@rechEleve')->name('rechEleve');
 
 // Route pour le test de depart 
 Route::get('/testDepart','Users\ElevesController@showTestDepart')->name('testDepart');

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Users;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use \Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class ElevesController extends Controller
 {
@@ -28,4 +30,28 @@ class ElevesController extends Controller
         // gerer ce qu'on fait des données en bdd
         dd([$request->math,$request->francais,$request->anglais,$request->qlm]);
     }
+
+    // liste de tous les eleves 
+    public function index(){
+        dd('nothing here');
+    }
+
+    public function create(){
+        $classe = session('classe');
+        return view('users.create',compact('classe'));
+    }
+
+    public function rechEleve(){
+        //recherche par le nom de famille
+        $query = "select `id`, `nom`, `prenom` from `users` where `type`='eleve' and `nom` like ? LIMIT 10 ";
+        $search = '%'.$_GET['rech'].'%';
+        //  dd($search);
+        $results = DB::select($query , array($search));
+        //dd($results);
+        return $results;
+    }
+    public function store(Request $request){
+        dd($request->all);
+    }
+
 }

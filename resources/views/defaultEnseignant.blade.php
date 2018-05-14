@@ -13,6 +13,7 @@
     <!-- Bootstrap core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('resources/assets/css/side-bar.css')}}" rel="stylesheet">
+    <link href="{{ asset('resources/assets/css/jquery.auto-complete.css')}}" rel="stylesheet">
     <link href="{{ asset('resources/assets/css/open-iconic-bootstrap.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
@@ -118,6 +119,9 @@
             </div>
             </li>
         </div>
+        <li>
+            <a href="{{route('eleves.index') }}">Elèves</a>
+        </li>
     </div>
             @endif
             </ul>
