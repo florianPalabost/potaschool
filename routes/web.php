@@ -37,6 +37,7 @@ Route::group(['prefix' => 'cours'],function(){
     Route::get('/matiere/{id}','Cours\MatiereController@get')->where('id','[0-9]+')->name('seeMatiere');
 
     Route::resource('module','Cours\ModuleController');
+    Route::resource('cours','Cours\CoursController');
 
 });
 

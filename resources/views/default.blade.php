@@ -90,6 +90,18 @@
                 <li class="sidebar-brand">
                 <a href="{{ url('/profil') }}">Mon Profil</a>
                 </li>
+                <li class="sidebar-brand">
+                <a href="{{ url('/cours/matiere') }}">Matières</a>
+                </li>
+                <li class="sidebar-brand">
+                <a href="{{ url('/cours/module') }}">Modules</a>
+                </li>
+                <li class="sidebar-brand">
+                <a href="{{ url('/cours/cours') }}">Cours</a>
+                </li>
+                <li class="sidebar-brand">
+                <a href="{{ url('/cours/exercice') }}">Exercice</a>
+                </li>
             @endif
                 @yield('sidebar')
             </ul>

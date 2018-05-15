@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Cours;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ModuleController extends Controller
+class CoursController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class ModuleController extends Controller
      */
     public function index()
     {
-      $title = "Modules";
-      $modules = \App\Module::with('matiere')->get();
-      return view('cours/module/index', compact('title','modules'));
+      $title = "Cours";
+      $cours = \App\Cours::with('module')->get();
+      return view('cours/cours/index', compact('title','cours'));
     }
 
     /**
@@ -26,9 +26,9 @@ class ModuleController extends Controller
      */
     public function create()
     {
-      $module= new \App\Module();
-      $matieres=\App\Matiere::pluck('name','id');
-      return view('cours.module.create',compact('module','matieres'));
+      $cours= new \App\Cours();
+      $modules=\App\Module::pluck('name','id');
+      return view('cours.cours.create',compact('cours','modules'));
     }
 
     /**
@@ -39,8 +39,8 @@ class ModuleController extends Controller
      */
     public function store(Request $request)
     {
-      $module = \App\Module::create($request->all());
-      return redirect(route('module.index'));
+      $cours = \App\Cours::create($request->all());
+      return redirect(route('cours.index'));
     }
 
     /**
@@ -51,10 +51,7 @@ class ModuleController extends Controller
      */
     public function show($id)
     {
-      $module = \App\Module::findOrFail($id);
-      $title = $module->name;
-      $matieres=\App\Matiere::pluck('name','id');
-      return view('cours.module.show',compact('module','matieres','title'));
+        //
     }
 
     /**
@@ -65,9 +62,7 @@ class ModuleController extends Controller
      */
     public function edit($id)
     {
-        $module = \App\Module::findOrFail($id);
-        $matieres=\App\Matiere::pluck('name','id');
-        return view('cours.module.edit',compact('module','matieres'));
+        //
     }
 
     /**
@@ -79,9 +74,7 @@ class ModuleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $module = \App\Module::findOrFail($id);
-        $module->update($request->all());
-        return redirect(route('module.edit',$id));
+        //
     }
 
     /**

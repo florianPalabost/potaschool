@@ -16,7 +16,7 @@ class MatiereController extends Controller
     {
         $title = "Matières";
         $list = \App\Matiere::get();
-        return view('cours/matiere', compact('title','list'));
+        return view('cours/matiere.index', compact('title','list'));
     }
 
     public function add()

@@ -9,4 +9,7 @@ class Matiere extends Model
 
   protected $fillable=['name'];
 
+  public function modules(){
+    return $this->hasMany('\App\Module');
+  }
 }
