@@ -27,7 +27,7 @@ class CoursController extends Controller
     public function create()
     {
       $cours= new \App\Cours();
-      $modules=\App\Module::pluck('name','id');
+      $modules=\App\Module::pluck('nomModule','id');
       return view('cours.cours.create',compact('cours','modules'));
     }
 
