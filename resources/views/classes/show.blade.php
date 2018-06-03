@@ -9,4 +9,7 @@
 <div class="row">
     <p><a class="btn btn-primary" href="{{ route('eleves.create') }}">Ajouter un élève <i class="fas fa-plus"></i></a></p>
 </div>
+@foreach($eleves as $eleve)
+<p>- {{$eleve->prenom}} {{$eleve->nom}}</p>
+@endforeach
 @endsection

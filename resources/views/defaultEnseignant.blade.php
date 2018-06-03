@@ -101,24 +101,24 @@
                 <li>
                     <a href="{{url('/dashboard') }}">Dashboard</a>
                 </li>
-                <li>
-                    <a href="{{route('classes.index')}}">Mes Classes</a>
-                </li>
                 <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <li class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><i class="fas fa-plus"></i> Mes Classes</a></li>
-            </div>
-            <li><div id="collapseOne" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <a href="{{route('classes.index')}}">Toute les classes</a>
-                    @foreach(session('classesEnseignant') as $classe)
-                    <a href="{{route('classes.show',$classe['id'])}}">{{$classe['nom']}}</a>
-                    @endforeach
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <li class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Mes Classes<i class="fas fa-plus"></i></a></li>
+                        </div>
+                        <li><div id="collapseOne" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <a href="{{route('classes.index')}}">Toute les classes</a>
+                                @if(session('classesEnseignant'))
+                                    @foreach(session('classesEnseignant') as $classe)
+                                    <a href="{{route('classes.show',$classe['id'])}}">{{$classe['nom']}}</a>
+                                    @endforeach
+                                @endif
+                            </div>
+                            </div>
+                        </li>
+                     </div>
                 </div>
-            </div>
-            </li>
-        </div>
         <li>
             <a href="{{route('eleves.index') }}">Elèves</a>
         </li>

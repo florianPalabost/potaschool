@@ -12,13 +12,12 @@ class ElevesController extends Controller
     // route : /profil
     public function getProfil(Request $request){
         $user = $request->user()->getAttributes();
-
         return view('users/monprofil',compact('user'));
     }
 
     //route : /testDepart
     public function showTestDepart(Request $request){
-        //Voir si on met l'id ou non
+        // Voir si on met l'id ou non
        // $eleve = Eleve::findOrFail($eleve);
        // dd($request->user()->getAttributes());
         $eleve = $request->user()->getAttributes();
@@ -51,7 +50,16 @@ class ElevesController extends Controller
         return $results;
     }
     public function store(Request $request){
-        dd($request->all);
+        // dd($request->all());
+        $idEleves = explode(",",$request->get('listEleves'));
+        foreach($idEleves as $idE){
+            \App\ElAppClas::create([
+                'idEleve' => $idE,
+                'idClasse' => $request->get('idClasse')
+            ]);
+        }
+        Session::flash('flash_message', "Le(s) élève(s) ont bien été ajouté à la classe!");
+        return redirect(route('classes.show', $request->get('idClasse')));
     }
 
 }

@@ -12,7 +12,7 @@ class EnseignantsController extends Controller
         //dd(session('user'));
         $user = session('user');
         $classes = Classe::select('*')->where('responsable',$user['nom'])->get();
-        //dd($classes);
+        //dd(session('classesEnseignant'));
         session(['classesEnseignant' => $classes]);
         return view('users/dashboard');
     }

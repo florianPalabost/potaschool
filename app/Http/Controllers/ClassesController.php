@@ -54,7 +54,12 @@ class ClassesController extends Controller
         //dd($idClasse);
         $classe = Classe::findOrFail($idClasse);
         session(['classe' => $classe]);
-        //dd($classe->nom);
-        return view('classes.show',compact('classe'));
+ 
+        //recherche des eleves qui appartiennent a la classe
+        $eleves = DB::table('el_app_clas')
+                    ->join('users','el_app_clas.idEleve','=','users.id')
+                    ->where('el_app_clas.idClasse','=',$idClasse)->get();
+        //dd($eleves);
+        return view('classes.show',compact('classe','eleves'));
     }
 }

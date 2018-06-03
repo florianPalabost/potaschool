@@ -3,6 +3,9 @@
 <div class="alert alert-success " style="display:none" id="alert-success">
   <strong>Bravo!</strong> L'élève est pré-ajouté à la classe, il le sera définitevement après validation du formulaire une fois tous les élèves inscrits.
 </div>
+<div class="alert alert-info " id="alert-info">
+  La recherche se fait par le nom
+</div>
 <h1>Ajout d'un élève à la classe {{$classe->nom}}</h1>
 <div class="form-group center-block">
         {!!Form::open(['method'=>'POST','route' => 'rechEleve']) !!}
@@ -11,6 +14,7 @@
     </div>
     {!!Form::open(['method'=>'POST','route' => 'eleves.store']) !!}
     {!! Form::hidden('listEleves', '', array('id' => 'listEleves')) !!}
+    {!! Form::hidden('idClasse', $classe->id, array('id' => 'idClasse')) !!}
     <button class="btn btn-primary" id="btnEnvoyer">Ajouter le(s) élève(s)</button>
     {!! Form::close() !!}
 @endsection

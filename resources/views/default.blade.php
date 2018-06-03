@@ -17,8 +17,9 @@
     <!-- Bootstrap core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('resources/assets/css/side-bar.css')}}" rel="stylesheet">
+    <link href="{{ asset('resources/assets/css/jquery.auto-complete.css')}}" rel="stylesheet">
     <link href="{{ asset('resources/assets/css/open-iconic-bootstrap.css')}}" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <style>
       body {
@@ -102,6 +103,24 @@
                 <li class="sidebar-brand">
                 <a href="{{ url('/cours/exercice') }}">Exercice</a>
                 </li>
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <li class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Mes Classes<i class="fas fa-plus"></i></a></li>
+                        </div>
+                        <li><div id="collapseOne" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <a href="{{route('classes.index')}}">Toute les classes</a>
+                                @if(session('classesEnseignant')!==null)
+                                @foreach(session('classesEnseignant') as $classe)
+                                <a href="{{route('classes.show',$classe['id'])}}">{{$classe['nom']}}</a>
+                                @endforeach
+                                @endif
+                            </div>
+                            </div>
+                        </li>
+                     </div>
+                </div>
             @endif
             </ul>
         </div>

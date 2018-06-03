@@ -114,6 +114,10 @@ trait AuthenticatesUsers
     protected function authenticated(Request $request, $user)
     {
         session(['user' => $user->getAttributes()]);
+        if(strcmp($user['type'],"enseignant")==0){
+            $classes = \App\Classe::select('*')->where('responsable',$user['nom'])->get();
+            session(['classesEnseignant' => $classes]);
+        }
     }
 
     /**
