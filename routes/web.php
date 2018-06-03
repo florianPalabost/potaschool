@@ -48,4 +48,9 @@ Route::group(['prefix' => 'cours'],function(){
 Route::get('/testDepart','Users\ElevesController@showTestDepart')->name('testDepart');
 Route::post('/testDepart','Users\ElevesController@storeTestDepart')->name('storeTestDepart');
 
+// Routes pour le potager
+Route::get('/potager', 'PotagersController@index')->name('indexPotager');
+
+
+
 Route::get('/home', 'HomeController@index')->name('home');

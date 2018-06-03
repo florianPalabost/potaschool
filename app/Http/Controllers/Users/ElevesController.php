@@ -32,7 +32,9 @@ class ElevesController extends Controller
 
     // liste de tous les eleves 
     public function index(){
-        dd('nothing here');
+        //dd('nothing here');
+        $eleves = \App\User::select('*')->where('type','eleve')->get();
+        return view('users.listEleves',compact('eleves'));
     }
 
     public function create(){

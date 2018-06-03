@@ -60,5 +60,8 @@ trait RegistersUsers
     protected function registered(Request $request, $user)
     {
         session(['user' => $user->getAttributes()]);
+        if(strcmp($user['type'],'enseignant')==0){
+            return redirect(route('monprofil'));
+        }
     }
 }

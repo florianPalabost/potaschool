@@ -9,6 +9,9 @@
 @endsection
 @section('content')
 <h1>Test de Départ</h1>
+<div class="alert alert-info " id="alert-info">
+  Les appréciations sont /20
+</div>
 {!!Form::open(['route' => 'storeTestDepart','method'=>'POST']) !!}
 <div class="row">
   <div class="col-sm-6">
@@ -31,7 +34,7 @@
   </div>
 </div>
 <div class="row">
-<div class="col-sm-6" style="margin-top:1%">
+  <div class="col-sm-6" style="margin-top:1%">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">Anglais</h5>
@@ -50,9 +53,9 @@
     </div>
   </div>
 </div>
-<div class="row">
+<div class="row" style="margin-top:1%;text-align:center">
 <div class="col-sm-12">
-<button class="btn btn-primary" id="btnEnvoyer">Valider</button>
+<button class="btn-lg btn-primary" id="btnEnvoyer">Valider</button>
 </div>
 </div>
 @endsection
