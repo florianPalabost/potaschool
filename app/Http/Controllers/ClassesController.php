@@ -60,6 +60,8 @@ class ClassesController extends Controller
                     ->join('users','el_app_clas.idEleve','=','users.id')
                     ->where('el_app_clas.idClasse','=',$idClasse)->get();
         //dd($eleves);
+        //count($eleves);
+
         return view('classes.show',compact('classe','eleves'));
     }
 }
