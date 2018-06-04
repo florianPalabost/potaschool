@@ -21,13 +21,21 @@ class ElevesController extends Controller
        // $eleve = Eleve::findOrFail($eleve);
        // dd($request->user()->getAttributes());
         $eleve = $request->user()->getAttributes();
-        return view('users/testDepart',compact('eleve'));
+        $matieres =\App\AvancementEleve::select('matieres.*')->join('cours','avancement_eleves.idCours','=','cours.id')
+        ->join('modules','cours.module_id','=','modules.id')
+        ->join('matieres','modules.matiere_id','=','matieres.id')
+        ->distinct()->get();
+       //dd($matieres);
+
+
+
+        return view('users/testDepart',compact('eleve','matieres'));
     }
 
     //route: POST /testDepart
     public function storeTestDepart(Request $request){
         // gerer ce qu'on fait des données en bdd
-        dd([$request->math,$request->francais,$request->anglais,$request->qlm]);
+        dd([$request->all()]);
     }
 
     // liste de tous les eleves 
