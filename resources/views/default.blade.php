@@ -13,7 +13,7 @@
         PotaSchool
       @show
     </title>
-
+    @yield('css')
     <!-- Bootstrap core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('resources/assets/css/side-bar.css')}}" rel="stylesheet">
@@ -35,7 +35,7 @@
       }
 
     </style>
-    @yield('css')
+ 
   </head>
 
   <body>

@@ -19,13 +19,15 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">{{$matiere['name']}}</h5>
-        <input id="{{$matiere['name']}}" data-slider-id="{{$matiere['name']}}slider" type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="10" name="{{$matiere['name']}}"/>
+        <input id="{{$matiere['name']}}" data-slider-id="{{$matiere['name']}}_slider" type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="10" name="{{$matiere['name']}}"/>
         <p class="card-text">Appréciation : 
           <label>
-          <i class="far fa-thumbs-up"></i>
+          <input type="radio" name="like_{{$matiere['name']}}" value="yes" style=" visibility: hidden;position: absolute;"/>
+          <i class="like_{{$matiere['name']}} far fa-thumbs-up" style="cursor:pointer"></i>
           </label>
           <label>
-          <i class="far fa-thumbs-down"></i>
+          <input type="radio" name="like_{{$matiere['name']}}" value="no" style=" visibility: hidden;position: absolute;"/>
+          <i class="unlike_{{$matiere['name']}} far fa-thumbs-down" style="cursor:pointer"></i>
           </label>
           </p>
       </div>
@@ -46,13 +48,22 @@
 <script type="text/javascript">
 var matieres = "{{$matieres}}";
 matieres = JSON.parse(matieres.replace(/&quot;/g,'"'));
-console.log($('#'+matieres[0]['name']));
 for(var i = 0; i < matieres.length; i++){
   $('#'+matieres[i]['name']).slider({
 	formatter: function(value) {
 		return value;
 	}
-});
+  });
+  $('.like_'+matieres[i]['name']).on( "click", function() {
+  $(this).css({"cursor":"pointer","background-color":"green"});
+  console.log(matieres[i]['name']);
+  if($('.unlike_'+matieres[i]['name']).css({"cursor":"pointer","background-color":"red"})){
+    $('.unlike_'+matieres[i]['name']).css({"cursor":"pointer","background-color":"red"});
+  }
+  });
+  $('.unlike_'+matieres[i]['name']).on( "click", function() {
+  $(this).css({"cursor":"pointer","background-color":"red"});
+  });
 }
 </script>
 @endsection
