@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class PotagersController extends Controller
 {
@@ -59,16 +60,27 @@ class PotagersController extends Controller
     }
 
     public function storeGraine(Request $request){
-        dd($request->all());
-        //$scoreActuel=;
-        //$scoreMax=;
-       /* if(\App\ElAppClas::create([
-            'idEleve' => $request->get('nom'),
-            'idClasse' => $request->get('statut'),
-            'idCours' => $request->get('niveau'),
-            'scoreAct' => $request->get('responsable'),
-            'scoreMax' => $request->get('responsable')
-        ])){*/
-    }
+        //dd($request->all());
+        $appreciations = \App\TestDepart::where([['idEleve',$request->get('idEleve')],['idMatiere',$request->get('idMatiere')]])->get();
+       // dd($appreciations[0]['appreciation']);
+        $scores = \App\Classe::where('classes.id',$request->get('idClasse'))
+        ->join('corresp_niv_scores','classes.niveau','corresp_niv_scores.niv')->get();
+      //  dd($scores[0]['scoreMax']);
+        if(strcmp($appreciations[0]['aime'],'yes')==0){
+           $scoreActuel=2*$appreciations[0]['appreciation']+10+$scores[0]['scoreMin'];
+        }
+        else{
+            $scoreActuel=2*$appreciations[0]['appreciation']+$scores[0]['scoreMin'];
+        }
 
+       \App\AvancementEleve::create([
+            'idEleve' => $request->get('idEleve'),
+            'idClasse' => $request->get('idClasse'),
+            'idCours' => $request->get('idCours'),
+            'scoreActuel' => $scoreActuel,
+            'scoreMax' => $scores[0]['scoreMax']
+        ]);
+        Session::flash('flash_message', "Ta graine a bien été planté ^^");
+        return redirect(route('indexPotager'));
+    }
 }
