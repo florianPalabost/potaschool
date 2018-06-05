@@ -22,12 +22,8 @@
         <input id="{{$matiere['name']}}" data-slider-id="{{$matiere['name']}}_slider" type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="10" name="{{$matiere['name']}}"/>
         <p class="card-text">Appréciation : 
           <label>
-          <input type="radio" name="like_{{$matiere['name']}}" value="yes" style=" visibility: hidden;position: absolute;"/>
-          <i class="like_{{$matiere['name']}} far fa-thumbs-up" style="cursor:pointer"></i>
-          </label>
-          <label>
-          <input type="radio" name="like_{{$matiere['name']}}" value="no" style=" visibility: hidden;position: absolute;"/>
-          <i class="unlike_{{$matiere['name']}} far fa-thumbs-down" style="cursor:pointer"></i>
+          <input type="radio" id="like_{{$matiere['name']}}" name="like_{{$matiere['name']}}" value="no" style="visibility: hidden;position: absolute;" onlick="console.log(this);">
+          <i class="like_{{$matiere['name']}} far fa-thumbs-up" style="cursor:pointer;color:red;"></i>
           </label>
           </p>
       </div>
@@ -55,14 +51,14 @@ for(var i = 0; i < matieres.length; i++){
 	}
   });
   $('.like_'+matieres[i]['name']).on( "click", function() {
-  $(this).css({"cursor":"pointer","background-color":"green"});
-  console.log(matieres[i]['name']);
-  if($('.unlike_'+matieres[i]['name']).css({"cursor":"pointer","background-color":"red"})){
-    $('.unlike_'+matieres[i]['name']).css({"cursor":"pointer","background-color":"red"});
-  }
-  });
-  $('.unlike_'+matieres[i]['name']).on( "click", function() {
-  $(this).css({"cursor":"pointer","background-color":"red"});
+    if($(this).css('color')==='rgb(255, 0, 0)'){
+      $(this).css({"cursor":"pointer","color":"green"});
+      $(this).prev(0).val('yes');
+    }
+    else{
+      $(this).css({"cursor":"pointer","color":"red"});
+      $(this).prev(0).val('no');
+    }
   });
 }
 </script>

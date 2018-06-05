@@ -6,7 +6,7 @@
   <div class="card-columns">
   @forelse($modules as $module)
   <div class="card ">
-    <div class="card-header bg-primary text-white"><a class="text-white" href="{{route('module.show',$module)}}"><h2>{{$module->name}}</a></h2></div>
+    <div class="card-header bg-primary text-white"><a class="text-white" href="{{route('module.show',$module)}}"><h2>{{$module->nomModule}}</a></h2></div>
     @if($module->matiere)
     <div class="card-body">{{$module->matiere->name}}</div>
     @endif

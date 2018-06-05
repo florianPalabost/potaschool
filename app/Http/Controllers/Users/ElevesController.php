@@ -21,14 +21,9 @@ class ElevesController extends Controller
        // $eleve = Eleve::findOrFail($eleve);
        // dd($request->user()->getAttributes());
         $eleve = $request->user()->getAttributes();
-        $matieres =\App\AvancementEleve::select('matieres.*')->join('cours','avancement_eleves.idCours','=','cours.id')
-        ->join('modules','cours.module_id','=','modules.id')
-        ->join('matieres','modules.matiere_id','=','matieres.id')
+        $matieres =\App\Matiere::select('matieres.*')
         ->distinct()->get();
        //dd($matieres);
-
-
-
         return view('users/testDepart',compact('eleve','matieres'));
     }
 

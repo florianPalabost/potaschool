@@ -35,8 +35,7 @@ class ClassesController extends Controller
             'nom' => $request->get('nom'),
             'statut' => $request->get('statut'),
             'niveau' => $request->get('niveau'),
-            'responsable' => $request->get('responsable'),
-            'listEleves' => ""
+            'responsable' => $request->get('responsable')
         ])){
             
             Session::flash('flash_message', 'La nouvelle classe a bien été ajouté !');
