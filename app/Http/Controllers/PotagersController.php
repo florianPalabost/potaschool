@@ -21,10 +21,8 @@ class PotagersController extends Controller
        ->where('avancement_eleves.idEleve',$user['id'])->distinct()->get();
        //dd($modules);
 
-        $matieres =\App\AvancementEleve::select('matieres.*')->join('cours','avancement_eleves.idCours','=','cours.id')
-        ->join('modules','cours.module_id','=','modules.id')
-        ->join('matieres','modules.matiere_id','=','matieres.id')
-        ->where('avancement_eleves.idEleve',$user['id'])->distinct()->get();
+        $matieres =\App\Matiere::select('matieres.*')
+       ->distinct()->get();
         //dd($matieres);
         $cours =\App\AvancementEleve::select('cours.*')->join('cours','avancement_eleves.idCours','=','cours.id')
         ->join('modules','cours.module_id','=','modules.id')

@@ -1,7 +1,7 @@
 @extends('defaultEleve')
 @section('content')
 <h1>POTAGER TODO</h1>
-        <p><button id="btnGraine" class="btn btn-primary" href="{{ route('classes.create') }}">Planter une graine<i class="fas fa-plus"></i></button></p>
+        <p><button id="btnGraine" class="graine btn btn-sm" href="{{ route('classes.create') }}"><img src="{{asset('resources/assets/images/graine.png')}}" style="width: 70px;"><i class="fa fa-plus" style="position:relative;z-index:99"></i></button></p>
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -67,14 +67,14 @@
             </div>
         </div>
     </div> 
-<table class="table table-bordered" style=" background-image: url('{{asset('resources/assets/images/dirt.jpg')}}')">
+<table class="table table-bordered" style="background-image: url('{{asset('resources/assets/images/fonddirt.jpg')}}')">
   <tbody>
   @foreach($matieres as $mat)
   <tr>
     <th scoped="row"><h4><a href="{{route('seeMatiere',$mat['id'])}}">{{$mat['name']}}</a></h4></th>
     @foreach($modules as $module)
       @if(strcmp($module['matiere_id'],$mat['id'])==0)
-        <td>
+        <td style="background-image: url('{{asset('resources/assets/images/gooddirt.jpg')}}')">
           <h5><a href="{{route('module.show',$module['id'])}}">{{$module['nomModule']}}</a></h5>
           <table><tr>
           @foreach($cours as $cour)
@@ -96,6 +96,8 @@
 <style>
 a{
   color:white;
+}
+.graine{
 }
 </style>
 @endsection
