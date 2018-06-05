@@ -8,6 +8,9 @@ use \App\Classe;
 
 class EnseignantsController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function showDashboard(){
         //dd(session('user'));
         $user = session('user');

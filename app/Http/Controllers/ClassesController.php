@@ -9,6 +9,9 @@ use \Illuminate\Support\Facades\DB;
 
 class ClassesController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     // return all classes of one teacher
     public function index(Request $request){
        // on recup l'user de la session

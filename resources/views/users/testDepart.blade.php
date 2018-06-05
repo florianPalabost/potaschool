@@ -19,10 +19,10 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">{{$matiere['name']}}</h5>
-        <input id="{{$matiere['name']}}" data-slider-id="{{$matiere['name']}}_slider" type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="10" name="{{$matiere['name']}}"/>
+        <input id="{{$matiere['name']}}" data-slider-id="{{$matiere['name']}}_slider" type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="10" name="{{$matiere['id']}}"/>
         <p class="card-text">Appréciation : 
           <label>
-          <input type="radio" id="like_{{$matiere['name']}}" name="like_{{$matiere['name']}}" value="no" style="visibility: hidden;position: absolute;" onlick="console.log(this);">
+          <input type="radio" id="like_{{$matiere['name']}}" name="like_{{$matiere['id']}}" value="no" style="visibility: hidden;position: absolute;" onlick="console.log(this);">
           <i class="like_{{$matiere['name']}} far fa-thumbs-up" style="cursor:pointer;color:red;"></i>
           </label>
           </p>

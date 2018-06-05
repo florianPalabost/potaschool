@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Session;
 
 class ElevesController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     // route : /profil
     public function getProfil(Request $request){
         $user = $request->user()->getAttributes();
@@ -30,7 +33,24 @@ class ElevesController extends Controller
     //route: POST /testDepart
     public function storeTestDepart(Request $request){
         // gerer ce qu'on fait des données en bdd
-        dd([$request->all()]);
+        $user = session('user');
+        //dd($user['id']);
+        //dd($request->except('_token'));
+        foreach($request->except('_token') as $id => $value){
+           // echo "My id is ". $id . " And My value is ". $value;
+
+           if(is_int($id)){
+            //dd($request->get('like_'.$id));
+            \App\TestDepart::create([
+                'idEleve' => $user['id'],
+                'idMatiere' => $id,
+                'appreciation' => $value,
+                'aime' => $request->get('like_'.$id)
+            ]);
+           }   
+        }
+        Session::flash('flash_message', "Merci d'avoir pris le temps de faire ce test vous pouvez maintenant joué ^^");
+        return redirect(route('indexPotager'));
     }
 
     // liste de tous les eleves 
