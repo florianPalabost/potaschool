@@ -32,13 +32,16 @@ Route::get('/dashboard','Users\EnseignantsController@showDashboard')->name('dash
 Route::resource('classes','ClassesController');
 Route::get('medicaments/rech','Users\ElevesController@rechEleve')->name('rechEleve');
 
-Route::group(['prefix' => 'cours'],function(){
-
+Route::group([],function(){
+/*
     Route::get('/matiere','Cours\MatiereController@getList')->name('matiereList');
     Route::get('/matiere/add','Cours\MatiereController@add')->name('newMatiere');
     Route::post('/matiere/add','Cours\MatiereController@save')->name('saveMatiere');
     Route::get('/matiere/{id}','Cours\MatiereController@get')->where('id','[0-9]+')->name('seeMatiere');
+*/
 
+    Route::resource('exercices','Cours\ExercicesController');
+    Route::resource('matieres','Cours\MatiereController');
     Route::resource('module','Cours\ModuleController');
     Route::resource('cours','Cours\CoursController');
 

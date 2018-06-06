@@ -87,21 +87,9 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-            @if (Auth::check())
+            @if (strcmp(session('user')['type'],'enseignant')==0)
                 <li class="sidebar-brand">
                 <a href="{{ url('/profil') }}">Mon Profil</a>
-                </li>
-                <li class="sidebar-brand">
-                <a href="{{ url('/cours/matiere') }}">Matières</a>
-                </li>
-                <li class="sidebar-brand">
-                <a href="{{ url('/cours/module') }}">Modules</a>
-                </li>
-                <li class="sidebar-brand">
-                <a href="{{ url('/cours/cours') }}">Cours</a>
-                </li>
-                <li class="sidebar-brand">
-                <a href="{{ url('/cours/exercice') }}">Exercice</a>
                 </li>
                 <div class="panel-group" id="accordion">
                     <div class="panel panel-default">
@@ -111,16 +99,26 @@
                         <li><div id="collapseOne" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <a href="{{route('classes.index')}}">Toute les classes</a>
-                                @if(session('classesEnseignant')!==null)
-                                @foreach(session('classesEnseignant') as $classe)
-                                <a href="{{route('classes.show',$classe['id'])}}">{{$classe['nom']}}</a>
-                                @endforeach
+                                @if(session('classesEnseignant'))
+                                    @foreach(session('classesEnseignant') as $classe)
+                                    <a href="{{route('classes.show',$classe['id'])}}">{{$classe['nom']}}</a>
+                                    @endforeach
                                 @endif
                             </div>
                             </div>
                         </li>
-                     </div>
-                </div>
+                        <li class="sidebar-brand">
+                        <a href="{{ route('matiereList') }}">Matières</a>
+                        </li>
+                        <li class="sidebar-brand">
+                        <a href="{{ route('module.index') }}">Modules</a>
+                        </li>
+                        <li class="sidebar-brand">
+                        <a href="{{ route('cours.index') }}">Cours</a>
+                        </li>
+                        <li>
+                          <a href="{{route('eleves.index') }}">Elèves</a>
+                      </li>
             @endif
             </ul>
         </div>

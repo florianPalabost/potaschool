@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cours;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class ModuleController extends Controller
 {
@@ -16,7 +17,7 @@ class ModuleController extends Controller
     {
       $title = "Modules";
       $modules = \App\Module::with('matiere')->get();
-      return view('cours/module/index', compact('title','modules'));
+      return view('cours.module.index', compact('title','modules'));
     }
 
     /**
@@ -92,6 +93,15 @@ class ModuleController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $module = \App\Module::findOrFail($id);
+      //dd($matiere);
+      if($module->delete()){
+        Session::flash('flash_message', "La module a bien été supprimé!");
+        return redirect(route('module.index'));
+      }
+      else{
+        Session::flash('flash_error', "ERREUR : La module n'a pas pu être supprimé!");
+        return redirect(route('module.index'));
+      }
     }
 }

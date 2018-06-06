@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cours;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class CoursController extends Controller
 {
@@ -51,7 +52,14 @@ class CoursController extends Controller
      */
     public function show($id)
     {
-        //
+        //dd('pas fait show');
+        $cours = \App\Cours::findOrFail($id);
+        //dd($cours);
+        //chercher tous les exos qui ont comme idCours celui du $cours
+         $exercices = \App\Exercice::where('idCours',$id)->get();
+
+
+        return view('cours.cours.show',compact('cours','exercices'));
     }
 
     /**
@@ -62,7 +70,7 @@ class CoursController extends Controller
      */
     public function edit($id)
     {
-        //
+        dd('pas fait edit');
     }
 
     /**
@@ -85,6 +93,15 @@ class CoursController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $cours = \App\Cours::findOrFail($id);
+        //dd($matiere);
+        if($cours->delete()){
+          Session::flash('flash_message', "Le cours a bien été supprimé!");
+          return redirect(route('cours.index'));
+        }
+        else{
+          Session::flash('flash_error', "ERREUR : Le cours n'a pas pu être supprimé!");
+          return redirect(route('cours.index'));
+        }
     }
 }

@@ -9,7 +9,13 @@ class FrontController extends Controller
 {
     // page d'accueil du site 
     public function index(){
-        return view('front/index');
+        if(session('user')!= null){
+            $user = session('user');
+            return view('front/index',compact('user'));
+        }
+        else{
+            return view('front/index');
+        }
     }
 
     public function contact(){

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cours;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class MatiereController extends Controller
 {
@@ -12,32 +13,45 @@ class MatiereController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getList()
+    public function index()
     {
         $title = "Matières";
         $list = \App\Matiere::get();
-        return view('cours/matiere.index', compact('title','list'));
+        return view('cours.matiere.index', compact('title','list'));
     }
 
-    public function add()
+    public function create()
     {
       $title = "Ajout Matière";
-      return view('cours/matiere/add',compact('title'));
+      return view('cours.matiere.add',compact('title'));
     }
 
-    public function save()
+    public function store(Request $request)
     {
-      $title = "Matière ajoutée";
+      //$title = "Matière ajoutée";
       $name = \Input::get('name');
       $matiere = \App\Matiere::firstOrCreate(['name'=> $name]);
-
-      return view('cours/matiere/success', compact('title','matiere'));
+      Session::flash('flash_message', "La matière a bien été ajouté !");
+      return redirect(route('matieres.index'));
     }
 
-    public function get($id)
+    public function show($id)
     {
       $matiere = \App\Matiere::findOrFail($id);
       $title=$matiere->name;
-      return view('cours/matiere/matiere', compact('title','matiere'));
+      return view('cours.matiere.matiere', compact('title','matiere'));
+    }
+
+    public function destroy($id){
+      $matiere = \App\Matiere::findOrFail($id);
+      //dd($matiere);
+      if($matiere->delete()){
+        Session::flash('flash_message', "La matière a bien été supprimé!");
+        return redirect(route('matieres.index'));
+      }
+      else{
+        Session::flash('flash_error', "ERREUR : La matière n'a pas pu être supprimé!");
+        return redirect(route('matieres.index'));
+      }
     }
 }

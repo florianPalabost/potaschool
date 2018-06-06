@@ -1,4 +1,4 @@
-@extends('default')
+@extends('defaultEnseignant')
 
 @section('content')
   <h1>{{$title}}</h1>
@@ -11,7 +11,16 @@
     <div class="card-body">{{$module->matiere->name}}</div>
     @endif
     <div class="card-footer">
-      <p><a class="btn btn-primary" href="{{route('module.edit', $module)}}">Modifier</a></p>
+    <div class="row">
+    <p><a class="btn btn-warning" href="{{route('module.edit', $module)}}"><i class="far fa-edit"></i></a></p>
+      <div class="col-md-3">
+            {!! Form::open(array('route' => array('module.destroy', $module->id), 'method' => 'delete')) !!}
+            {!!Form::hidden('id',$module->id)!!}
+            <button type="submit"  class="btn btn-danger" onclick="return confirm('Voulez vous vraiment supprimer ce module?');"><i class="far fa-trash-alt"></i></button>
+            {!! Form::close() !!}
+    </div>
+    </div>
+
     </div>
   </div>
   @empty

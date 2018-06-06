@@ -117,6 +117,15 @@
                             </div>
                             </div>
                         </li>
+                        <li class="sidebar-brand">
+                        <a href="{{ route('matieres.index') }}">Matières</a>
+                        </li>
+                        <li class="sidebar-brand">
+                        <a href="{{ route('module.index') }}">Modules</a>
+                        </li>
+                        <li class="sidebar-brand">
+                        <a href="{{ route('cours.index') }}">Cours</a>
+                        </li>
                      </div>
                 </div>
         <li>

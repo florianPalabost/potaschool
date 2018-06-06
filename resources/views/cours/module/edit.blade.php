@@ -1,4 +1,4 @@
-@extends('default')
+@extends('defaultEnseignant')
 
 @section('content')
   <h1>Edition</h1>
@@ -6,5 +6,5 @@
 @endsection
 
 @section('title')
-  PotaSchool - {{$module->name}}
+  PotaSchool - {{$module->nomModule}}
 @endsection

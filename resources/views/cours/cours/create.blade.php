@@ -1,4 +1,4 @@
-@extends('default')
+@extends('defaultEnseignant')
 
 @section('content')
   <h1>Ajout d'un cours</h1>
