@@ -56,6 +56,20 @@ class PotagersController extends Controller
           //dd($results);
           return $results;
     }
+    public function findExercices() {
+        //dd($results);
+        $exercices = \App\Module::where('modules.nomModule',$_GET['nomModule'])
+        ->join('cours','modules.id','=','cours.module_id')
+        ->join('exercices','cours.id','=','exercices.idCours')
+        ->get();
+        return $exercices;
+    }
+    public function findExo() {
+        $exercice = \App\Exercice::where('titre',$_GET['titre'])
+        ->join('reponses','exercices.id','=','reponses.idExo')
+        ->first();
+        return $exercice;
+    }
 
     public function storeGraine(Request $request){
         //dd($request->all());
@@ -80,5 +94,10 @@ class PotagersController extends Controller
         ]);
         Session::flash('flash_message', "Ta graine a bien été planté ^^");
         return redirect(route('indexPotager'));
+    }
+
+    public function storeRep(Request $request){
+        Session::flash('flash_error', "Il manque des informations !");
+        return redirect(route('indexPotager'))->withInput();
     }
 }

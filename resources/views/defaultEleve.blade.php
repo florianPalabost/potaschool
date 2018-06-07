@@ -48,7 +48,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="{{ url('/potager') }}">Jeu
+              <a class="nav-link" href="{{ route('indexPotager') }}">Jeu
                 <span class="sr-only">(current)</span>
               </a>
             </li>

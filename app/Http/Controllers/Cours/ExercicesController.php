@@ -26,4 +26,9 @@ class ExercicesController extends Controller
             ]);
       return redirect(route('cours.show',$request->get('idCours')));
     }
+
+    public function show($id){
+        dd($id);
+        //return view('exercices.show');
+    }
 }

@@ -56,9 +56,9 @@ class CoursController extends Controller
         $cours = \App\Cours::findOrFail($id);
         //dd($cours);
         //chercher tous les exos qui ont comme idCours celui du $cours
-         $exercices = \App\Exercice::where('idCours',$id)->get();
-
-
+         $exercices = \App\Exercice::where('idCours',$id)->join('reponses','exercices.id','=','reponses.idExo')->get();
+// a verif un autre jour jpp
+        //dd($exercices);
         return view('cours.cours.show',compact('cours','exercices'));
     }
 

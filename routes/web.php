@@ -53,9 +53,12 @@ Route::post('/testDepart','Users\ElevesController@storeTestDepart')->name('store
 
 // Routes pour le potager
 Route::get('/potager', 'PotagersController@index')->name('indexPotager');
+Route::get('/potager/findExercices', 'PotagersController@findExercices')->name('findExercices');
+Route::get('/potager/findExercice', 'PotagersController@findExo')->name('findExo');
 Route::get('/potager/findModule', 'PotagersController@findModule')->name('findModule');
 Route::get('/potager/findCours', 'PotagersController@findCours')->name('findCours');
 Route::POST('/potager/addGraine', 'PotagersController@storeGraine')->name('storeGraine');
+Route::POST('/potager/stroreRep', 'PotagersController@storeRep')->name('storeRep');
 
 
 
