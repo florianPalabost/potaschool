@@ -1,8 +1,9 @@
 @extends('defaultEleve')
 @section('content')
 <h1>POTAGER TODO</h1>
-        <!-- trigger btn plante graine  -->
-        <p><button id="btnGraine" class="graine btn btn-sm" href="{{ route('classes.create') }}"><img src="{{asset('resources/assets/images/graine.png')}}" style="width: 70px;"><i class="fa fa-plus" style="position:relative;z-index:99"></i></button></p>
+<div class="lepotager">
+       <!-- trigger btn plante graine  -->
+       <p><button id="btnGraine" class="graine btn btn-sm" href="{{ route('classes.create') }}"><img src="{{asset('resources/assets/images/grainz.png')}}" style="width: 70px;"><i class="fa fa-plus" style="position:relative;z-index:99"></i></button></p>
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -94,6 +95,7 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                             </div>
                             <div class="modal-body">
+                            <div id="message_erreur" class="alert alert-danger alert-dismissible" style="display:none"></div>
                                <div class="" id="exo"></div>
                             </div>
     
@@ -110,8 +112,38 @@
     @foreach($modules as $module)
       @if(strcmp($module['matiere_id'],$mat['id'])==0)
         <td style="background-image: url('{{asset('resources/assets/images/gooddirt.jpg')}}')">
-        <!-- trigger choix exos  -->
+        <!-- trigger choix exos  -->      
           <h5><a class="module" href="#">{{$module['nomModule']}}</a></h5>
+          <table><tr>
+          @foreach($cours as $cour)
+          @if(strcmp($cour['module_id'],$module['id'])==0)
+            @if($cour['scoreActuel']<=10)
+         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/grainz.png')}}" alt=""><p>  </p></a></td>
+            @elseif($cour['scoreActuel']>10 && $cour['scoreActuel']<20)
+         <td style=" background-color: rgba(0, 0, 0, 0.5);min-width:2.5em"><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:1em" src="" alt=""></a></td>
+            @elseif($cour['scoreActuel']>=20 && $cour['scoreActuel']<30)
+         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:1em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""></a></td>
+            @elseif($cour['scoreActuel']>=30 && $cour['scoreActuel']<40)
+         <td style="background-color: rgba(0, 0, 0, 0.5);"><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:1em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""></a></td>
+            @elseif($cour['scoreActuel']>=40 && $cour['scoreActuel']<50)
+         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""></a></td>
+            @elseif($cour['scoreActuel']>=50 && $cour['scoreActuel']<60)
+         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""></a></td>
+            @elseif($cour['scoreActuel']>=60 && $cour['scoreActuel']<70)
+         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""></a></td>
+            @elseif($cour['scoreActuel']>=70 && $cour['scoreActuel']<80)
+         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""></a></td>
+            @elseif($cour['scoreActuel']>=80 && $cour['scoreActuel']<90)
+         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:4em" src="{{asset('resources/assets/images/arbre_sans_fruit.png')}}" alt=""></a></td>
+            @elseif($cour['scoreActuel']>=90 && $cour['scoreActuel']<100)
+         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:4em" src="{{asset('resources/assets/images/arbre_fruit_pas_mur.png')}}" alt=""></a></td>
+            @elseif($cour['scoreActuel']==100)
+         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:4em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""></a></td>
+            @endif
+          @endif
+          @endforeach
+          </tr>
+          </table>
         </td>
       @endif
     @endforeach
@@ -119,7 +151,11 @@
   @endforeach
   </tbody>
 </table>
+<div class="row">
 
+</div>
+</div>
+ 
 @endsection
 @section('css')
 <style>
@@ -129,6 +165,9 @@ a{
 td a {
         display:block;
     }
+.lepotager a{
+    cursor: url("{{asset('resources/assets/images/arrosoir.png')}}") 2 2, pointer;
+}
 </style>
 @endsection
 @section('script')
@@ -174,7 +213,10 @@ $(document).ready(function(){
   });
 
 $('#theExo').on('show.bs.modal',function(data){
+    $('#message_erreur').css({'display':'none'});
+    $('#message_erreur').html();
     var nbErreur = 0;
+    var score = 1;
     $('#exo').html('');
     console.log('nom exo ...');
     console.log(data.relatedTarget.textContent);
@@ -208,8 +250,11 @@ $('#theExo').on('show.bs.modal',function(data){
                     var rep = $('<input type="hidden" id="therep" name="reponse" value="'+donnee.reponse+'">');
                     rep.appendTo('#formrep');
                     if(donnee.typeRep=="unique"){
+
+                        var formGr = $('<div class="form-group"></div>');
+                        formGr.appendTo('#formrep');
                         var reponse = $('<input type="text name="choix1" id="reponse" placeholder="Votre reponse..."/>');
-                        reponse.appendTo('#formrep');
+                        reponse.appendTo(formGr);
                     }
                     else{
                         var reponse1 = $('<input type="radio" id="choix1" name="choix1" value="'+donnee.reponse+'"><label for="choix1">'+donnee.reponse+'</label>');
@@ -294,15 +339,58 @@ $('#theExo').on('show.bs.modal',function(data){
                     myPanel.appendTo(myCol);
                     myCol.appendTo('#exos');*/
                     $('#formrep').on('submit',function(event,data){
+                        $('#message_erreur').html("");
                          //fix submit errors firefox
                         event.preventDefault(); 
-                        console.log('click btn val');
-                        console.log($('#therep').val());
+                        //console.log('click btn val');
+                      //  console.log($('#therep').val());
                         console.log('event');
+                        //console.log($('input[name=choix1]:checked').val());
+                        if($('#reponse').val() === undefined){
+                            var repEleve = $('input[name=choix1]:checked').val();
+                        }
+                        else{
+                            var repEleve =$('#reponse').val();
+                        }
+                        //console.log($('#reponse').val());
+                        var reponse = $('#therep').val();
                         
-                        console.log($('input[name=choix1]:checked').val());
+                        console.log('reponse');
+                        console.log(reponse);
                         
-
+                        console.log(event.currentTarget);
+                        console.log(reponse ===repEleve);
+                        if(reponse ===repEleve){
+                            var scr = $('<input type="hidden" name="score" value="'+score+'">');
+                             scr.appendTo('#formrep');
+                            var nbErr = $('<input type="hidden" name="nbErreur" value="'+nbErreur+'">');
+                            nbErr.appendTo('#formrep');
+                            event.currentTarget.submit();
+                            return true;
+                        }
+                        else{
+                            nbErreur += 1;
+                            var errrr= $("<p>Ce n'est pas la bonne reponse ! Tu peux réessayer </p>");
+                            errrr.appendTo('#message_erreur');
+                            if(score>0){
+                                score -= 0.25;
+                            }
+                            else{
+                                var perdu = $("<p>Tu as trop essayé, l'exercice va se fermer, tu peux en profiter pour prendre une pause en relisant ton cours</p>");
+                                perdu.appendTo('#message_erreur');
+                                setTimeout(() => {
+                                    $('#theExo').modal('hide');
+                                }, 7000);
+                               
+                            }
+                            console.log(nbErreur);
+                            if(nbErreur >= 3) {
+                                var cours = $('<p>Je te conseille de revoir ton cours, tu ne sembles pas maitrisé cette notion</p>');
+                                cours.appendTo('#message_erreur');
+                            }
+                            $('#message_erreur').show();
+                            $(this).addClass('has-error');
+                        }
                         return false;
                     });
         }      

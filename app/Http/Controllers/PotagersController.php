@@ -24,7 +24,7 @@ class PotagersController extends Controller
         $matieres =\App\Matiere::select('matieres.*')
        ->distinct()->get();
         //dd($matieres);
-        $cours =\App\AvancementEleve::select('cours.*')->join('cours','avancement_eleves.idCours','=','cours.id')
+        $cours =\App\AvancementEleve::selectRaw('cours.*,avancement_eleves.*')->join('cours','avancement_eleves.idCours','=','cours.id')
         ->join('modules','cours.module_id','=','modules.id')
         ->join('matieres','modules.matiere_id','=','matieres.id')
         ->where('avancement_eleves.idEleve',$user['id'])->distinct();
@@ -32,7 +32,7 @@ class PotagersController extends Controller
         $cours = $cours->get();
         $lesMatieres = \App\Matiere::select('*')->pluck('name','id');
         //dd($lesMatieres);
-        //dd($choixCours);
+       // dd($cours);
         $classes = \App\ElAppClas::join('classes','el_app_clas.idClasse','=','classes.id')->where('idEleve',$user['id'])->get();
         //dd($classes);
         return view('potager.index',compact('user','matieres','lesMatieres','cours','choixCours','modules','classes'));
@@ -75,15 +75,23 @@ class PotagersController extends Controller
         //dd($request->all());
         $appreciations = \App\TestDepart::where([['idEleve',$request->get('idEleve')],['idMatiere',$request->get('idMatiere')]])->get();
        // dd($appreciations[0]['appreciation']);
-        $scores = \App\Classe::where('classes.id',$request->get('idClasse'))
-        ->join('corresp_niv_scores','classes.niveau','corresp_niv_scores.niv')->get();
+       $scores = \App\Classe::where('classes.id',$request->get('idClasse'))
+       ->join('corresp_niv_scores','classes.niveau','corresp_niv_scores.niv')->get();
+       
+       if($appreciations->count() > 0){
+            if(strcmp($appreciations[0]['aime'],'yes')==0){
+                $scoreActuel=2*$appreciations[0]['appreciation']+10+$scores[0]['scoreMin'];
+            }
+            else{
+                $scoreActuel=2*$appreciations[0]['appreciation']+$scores[0]['scoreMin'];
+            }
+       }
+       else{
+           $scoreActuel = $scores[0]['scoreMin'];
+       }
+       
       //  dd($scores[0]['scoreMax']);
-        if(strcmp($appreciations[0]['aime'],'yes')==0){
-           $scoreActuel=2*$appreciations[0]['appreciation']+10+$scores[0]['scoreMin'];
-        }
-        else{
-            $scoreActuel=2*$appreciations[0]['appreciation']+$scores[0]['scoreMin'];
-        }
+       
 
        \App\AvancementEleve::create([
             'idEleve' => $request->get('idEleve'),
@@ -97,7 +105,8 @@ class PotagersController extends Controller
     }
 
     public function storeRep(Request $request){
-        Session::flash('flash_error', "Il manque des informations !");
+        dd($request->all());
+        //Session::flash('flash_error', "Il manque des informations !");
         return redirect(route('indexPotager'))->withInput();
     }
 }
