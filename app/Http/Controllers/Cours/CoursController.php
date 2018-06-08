@@ -13,10 +13,15 @@ class CoursController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(){
+      $this->middleware('auth');
+     }
+
     public function index()
     {
       $title = "Cours";
       $cours = \App\Cours::with('module')->get();
+    
       return view('cours/cours/index', compact('title','cours'));
     }
 
@@ -55,6 +60,7 @@ class CoursController extends Controller
         //dd('pas fait show');
         $cours = \App\Cours::findOrFail($id);
         //dd($cours);
+        //dd(session('user'));
         //chercher tous les exos qui ont comme idCours celui du $cours
          $exercices = \App\Exercice::where('idCours',$id)->join('reponses','exercices.id','=','reponses.idExo')->get();
 // a verif un autre jour jpp

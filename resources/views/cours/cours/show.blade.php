@@ -2,12 +2,14 @@
 
 @section('content')
 <h1>{{$cours['name']}}</h1>
-<div class="row">
-<p><button id="btnExos" class="btn btn-primary" href="{{ route('classes.create') }}">Ajout Exercice <i class="fa fa-plus" style="position:relative;z-index:99"></i></button></p>
-</div>
+@if(strcmp(session('user')['type'],'enseignant')==0)
+    <div class="row">
+    <p><button id="btnExos" class="btn btn-primary" href="{{ route('classes.create') }}">Ajout Exercice <i class="fa fa-plus" style="position:relative;z-index:99"></i></button></p>
+    </div>
+    @endif
 <h2>Contenu du cours</h2>
 <p>{{$cours['content']}}</p>
-<h2>Les exercices enregistrés</h2>
+<h2>Les exercices disponibles sur le potager</h2>
 @forelse($exercices as $exo)
 <p>{{$exo['titre']}}</p>
 @empty

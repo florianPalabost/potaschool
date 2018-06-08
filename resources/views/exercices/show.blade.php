@@ -1,4 +1,4 @@
 @extends('defaultEleve')
 @section('content')
-Exercice
+<h2>Vous pouvez faire cet exercice sur le potager </h2>
 @endsection

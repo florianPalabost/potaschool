@@ -35,7 +35,7 @@ class ElevesController extends Controller
         // gerer ce qu'on fait des données en bdd
         $user = session('user');
         //dd($user['id']);
-        //dd($request->except('_token'));
+      //  dd($request->except('_token'));
         foreach($request->except('_token') as $id => $value){
            // echo "My id is ". $id . " And My value is ". $value;
 

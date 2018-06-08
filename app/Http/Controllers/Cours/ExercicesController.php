@@ -28,7 +28,7 @@ class ExercicesController extends Controller
     }
 
     public function show($id){
-        dd($id);
-        //return view('exercices.show');
+       // dd($id);
+        return view('exercices.show');
     }
 }

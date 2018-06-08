@@ -74,7 +74,7 @@
                      <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title" id="listExoLabel">Choix d'un exercice sur le cours ...</h4>
+                                <h4 class="modal-title" id="listExoLabel">Choix d'un exercice sur ce cours ...</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                             </div>
                             <div class="modal-body">
@@ -107,7 +107,7 @@
   <tbody>
   @foreach($matieres as $mat)
   <tr>
-    <th scoped="row"><h4><a href="{{route('matieres.show',$mat['id'])}}">{{$mat['name']}}</a></h4></th>
+    <th scoped="row"><h4><a href="{{route('matieres.show',$mat['id'])}}">{{$mat['name']}}</a></h4><p style="color:white">{{$mat['score']}}/100</p></th>
     @foreach($modules as $module)
       @if(strcmp($module['matiere_id'],$mat['id'])==0)
         <td style="background-image: url('{{asset('resources/assets/images/gooddirt.jpg')}}')">
@@ -117,27 +117,27 @@
           @foreach($cours as $cour)
           @if(strcmp($cour['module_id'],$module['id'])==0)
             @if($cour['scoreActuel']<=10)
-         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/grainz.png')}}" alt=""><p>  </p></a></td>
+         <td><a class="cours" href="#"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/grainz.png')}}" alt=""><p>{{$cour['name']}}</p></a></td>
             @elseif($cour['scoreActuel']>10 && $cour['scoreActuel']<20)
-         <td style=" background-color: rgba(0, 0, 0, 0.5);min-width:2.5em"><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:1em" src="" alt=""></a></td>
+         <td style=" background-color: rgba(0, 0, 0, 0.5);min-width:2.5em"><a class="cours" href="#"><img class="img-fluid" style="width:1em" src="" alt=""><p>{{$cour['name']}}</p></a></td>
             @elseif($cour['scoreActuel']>=20 && $cour['scoreActuel']<30)
-         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:1em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""></a></td>
+         <td><a  class="cours" href="#"><img class="img-fluid" style="width:1em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""><p>{{$cour['name']}}</p></a></td>
             @elseif($cour['scoreActuel']>=30 && $cour['scoreActuel']<40)
-         <td style="background-color: rgba(0, 0, 0, 0.5);"><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:1em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""></a></td>
+         <td style="background-color: rgba(0, 0, 0, 0.5);"><a class="cours" href="#"><img class="img-fluid" style="width:1em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""><p>{{$cour['name']}}</p></a></td>
             @elseif($cour['scoreActuel']>=40 && $cour['scoreActuel']<50)
-         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""></a></td>
+         <td><a class="cours" href="#"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""><p>{{$cour['name']}}</p></a></td>
             @elseif($cour['scoreActuel']>=50 && $cour['scoreActuel']<60)
-         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""></a></td>
+         <td><a class="cours" href="#"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""><p>{{$cour['name']}}</p></a></td>
             @elseif($cour['scoreActuel']>=60 && $cour['scoreActuel']<70)
-         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""></a></td>
+         <td><a class="cours" href="#"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""><p>{{$cour['name']}}</p></a></td>
             @elseif($cour['scoreActuel']>=70 && $cour['scoreActuel']<80)
-         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/tree.png')}}" alt=""></a></td>
+         <td><a class="cours" href="#"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/tree.png')}}" alt=""><p>{{$cour['name']}}</p></a></td>
             @elseif($cour['scoreActuel']>=80 && $cour['scoreActuel']<90)
-         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:4em" src="{{asset('resources/assets/images/arbre_sans_fruit.png')}}" alt=""></a></td>
+         <td><a class="cours" href="#"><img class="img-fluid" style="width:4em" src="{{asset('resources/assets/images/arbre_sans_fruit.png')}}" alt=""><p>{{$cour['name']}}</p></a></td>
             @elseif($cour['scoreActuel']>=90 && $cour['scoreActuel']<100)
-         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:4em" src="{{asset('resources/assets/images/arbre_fruit_pas_mur.png')}}" alt=""></a></td>
+         <td><a class="cours" href="#"><img class="img-fluid" style="width:4em" src="{{asset('resources/assets/images/arbre_fruit_pas_mur.png')}}" alt=""><p>{{$cour['name']}}</p></a></td>
             @elseif($cour['scoreActuel']==100)
-         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:4em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""></a></td>
+         <td><a class="cours" href="#"><img class="img-fluid" style="width:4em" src="{{asset('resources/assets/images/lemon.png')}}" alt=""><p>{{$cour['name']}}</p></a><hr><a style="text-align:center" href="{{route('cours.show',$cour['id'])}}"><img src="{{asset('resources/assets/images/arrosoir.png')}}" class="img-fluid arr" alt="arroser" /></a></td>
             @endif
           @endif
           @endforeach
@@ -166,11 +166,23 @@ body{
 a{
   color:white;
 }
+
 td a {
         display:block;
     }
 .lepotager a{
-    cursor: url("{{asset('resources/assets/images/arrosoir.png')}}") 2 2, pointer;
+    /*cursor: url("{{asset('resources/assets/images/arrosoir.png')}}") 2 2, pointer;*/
+}
+.lepotager a p{
+    display:none;
+}
+hr{
+    border-top: solid 1px;
+padding-top: 10%;
+text-align: center;
+}
+.lepotager img.arr{
+    /*background-color:blue;*/
 }
 </style>
 @endsection
@@ -182,12 +194,13 @@ $(document).ready(function(){
     $('#myModal').modal();
   });
 
-  $('.module').on('click',function(){
+  $('.cours').on('click',function(){
     $('#exos').html('');
    
-    var nomModule = $(this).text();
+    var nomCours = $(this).text();
+    console.log(nomCours);
     var token = $("[name=_token]").val();
-    var donn = {"nomModule":nomModule,"_token":token};
+    var donn = {"nomCours":nomCours,"_token":token};
     $.ajax({
         type:"GET",
         url : "{!! Illuminate\Support\Facades\URL::action('PotagersController@findExercices')!!}", // on appelle le script JSON
@@ -261,21 +274,22 @@ $('#theExo').on('show.bs.modal',function(data){
                         reponse.appendTo(formGr);
                     }
                     else{
-                        var reponse1 = $('<input type="radio" id="choix1" name="choix1" value="'+donnee.reponse+'"><label for="choix1">'+donnee.reponse+'</label>');
+                       // var divRadio = $('<div class="radio"></div>');
+                        var reponse1 = $('<div class="radio"><input type="radio" id="choix1" name="choix1" value="'+donnee.reponse+'"><label for="choix1">'+donnee.reponse+'</label></div>');
                         if(donnee.choix2 !==null){
-                            var reponse2 = $('<input type="radio" id="choix1" name="choix1" value="'+donnee.choix2+'"><label for="choix1">'+donnee.choix2+'</label>');
+                            var reponse2 = $('<div class="radio"><input type="radio" id="choix1" name="choix1" value="'+donnee.choix2+'"><label for="choix1">'+donnee.choix2+'</label></div>');
                         }
                         else{
                             var reponse2=null;
                         }
                         if(donnee.choix3 !==null){
-                            var reponse3 = $('<input type="radio" id="choix1" name="choix1" value="'+donnee.choix3+'"><label for="choix1">'+donnee.choix3+'</label>');
+                            var reponse3 = $('<div class="radio"><input type="radio" id="choix1" name="choix1" value="'+donnee.choix3+'"><label for="choix1">'+donnee.choix3+'</label></div>');
                         }
                         else{
                            var reponse3=null;
                         }
                         if(donnee.choix4 !==null){
-                            var reponse4 = $('<input type="radio" id="choix1" name="choix1" value="'+donnee.choix4+'"><label for="choix1">'+donnee.choix4+'</label>');
+                            var reponse4 = $('<div class="radio"><input type="radio" id="choix1" name="choix1" value="'+donnee.choix4+'"><label for="choix1">'+donnee.choix4+'</label></div>');
                         }
                         else{
                            var reponse4=null;
