@@ -40,7 +40,6 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-      <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle"><span class="oi oi-menu" title="oi-menu" aria-hidden="true"></span>
         <a class="navbar-brand" href="{{ url('/') }}">PotaSchool</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -65,15 +64,15 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @if (Auth::check())
-                       
+                    <a class="btn btn-info" href="{{ url('/profil') }}">Mon Profil</a>
                         {{ Form::open(array('url' => '/logout','style'=>'display: inline-block;')) }}
                         {{ Form::button('Se déconnecter', array('class'=>'btn btn-danger deco', 'type'=>'submit')) }}
                         {{ Form::close() }}
-
                     @else
                         <a href="{{ url('/login') }}">Se Connecter</a>
                         <a href="{{ url('/register') }}">S'enregistrer</a>
                     @endif
+                   
                 </div>
             @endif
         </div>

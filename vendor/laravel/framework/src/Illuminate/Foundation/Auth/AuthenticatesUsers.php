@@ -117,6 +117,7 @@ trait AuthenticatesUsers
         if(strcmp($user['type'],"enseignant")==0){
             $classes = \App\Classe::select('*')->where('responsable',$user['nom'])->get();
             session(['classesEnseignant' => $classes]);
+            return redirect(route('monprofil'));
         }
     }
 

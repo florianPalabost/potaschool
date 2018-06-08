@@ -8,11 +8,12 @@
     </div>
     @endif
 <h2>Contenu du cours</h2>
-<p>{{$cours['content']}}</p>
+<p>{!! $cours['content'] !!}</p>
 <h2>Les exercices disponibles sur le potager</h2>
 @forelse($exercices as $exo)
 <p>{{$exo['titre']}}</p>
 @empty
+<p>Aucun exercice enregistré.</p>
 @endforelse
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">

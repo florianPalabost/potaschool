@@ -43,7 +43,6 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-      <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle"><span class="oi oi-menu" title="oi-menu" aria-hidden="true"></span>
         <a class="navbar-brand" href="{{ url('/') }}">PotaSchool</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>

@@ -2,7 +2,10 @@
 @section('content')
 <div class="lepotager">
        <!-- trigger btn plante graine  -->
+       <div class="row">
        <p><button id="btnGraine" class="graine btn btn-sm" href="{{ route('classes.create') }}"><img src="{{asset('resources/assets/images/grainz.png')}}" style="width: 70px;"><i class="fa fa-plus" style="position:relative;z-index:99"></i></button></p>
+       <button id="btnLegende" class="btn btn-sm" style="width: 5em;height: 5.7em;margin-left: 5%;"><img class="img-fluid" src="{{asset('resources/assets/images/indice.png')}}" alt=""></button>
+       </div>
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -102,12 +105,40 @@
                     </div>
                 </div>
                  <!-- FIN MODAL je ffais exos -->
-   
+                 <!--  MODAL legende -->
+                 <div class="modal fade" id="laLegende" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Il était une fois...</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <p>Retrouve toute les informations à savoir sur le jeu</p>
+            </div>
+        </div>
+        </div>
+        </div>
+     <!-- finMODAL legende  -->
 <table class="table table-bordered" style="background-image: url('{{asset('resources/assets/images/fonddirt.jpg')}}')">
   <tbody>
   @foreach($matieres as $mat)
   <tr>
-    <th scoped="row"><h4><a href="{{route('matieres.show',$mat['id'])}}">{{$mat['name']}}</a></h4><p style="color:white">{{$mat['score']}}/100</p></th>
+  @if($mat['score']<=14)
+    <th style="background-image: url('{{asset('resources/assets/images/lvl1.jpg')}}');background-repeat: no-repeat;" scoped="row"><h4><a href="{{route('matieres.show',$mat['id'])}}">{{$mat['name']}}</a></h4><p style="color:white">{{$mat['score']}}/100</p></th>
+  @elseif($mat['score']>14 && $mat['score']<29)
+    <th style="background-image: url('{{asset('resources/assets/images/lvl2.jpg')}}');background-repeat: no-repeat;" scoped="row"><h4><a href="{{route('matieres.show',$mat['id'])}}">{{$mat['name']}}</a></h4><p style="color:white">{{$mat['score']}}/100</p></th>
+  @elseif($mat['score']>=29 && $mat['score']<43)
+    <th style="background-image: url('{{asset('resources/assets/images/lvl3.jpg')}}');background-repeat: no-repeat;" scoped="row"><h4><a href="{{route('matieres.show',$mat['id'])}}">{{$mat['name']}}</a></h4><p style="color:white">{{$mat['score']}}/100</p></th>
+  @elseif($mat['score']>=43 && $mat['score']<57)
+     <th style="background-image: url('{{asset('resources/assets/images/lvl4.jpg')}}');background-repeat: no-repeat;" scoped="row"><h4><a href="{{route('matieres.show',$mat['id'])}}">{{$mat['name']}}</a></h4><p style="color:white">{{$mat['score']}}/100</p></th>
+  @elseif($mat['score']>=71 && $mat['score']<85)
+     <th style="background-image: url('{{asset('resources/assets/images/lvl5.jpg')}}');background-repeat: no-repeat;" scoped="row"><h4><a href="{{route('matieres.show',$mat['id'])}}">{{$mat['name']}}</a></h4><p style="color:white">{{$mat['score']}}/100</p></th>
+  @elseif($mat['score']>=85 && $mat['score']<100)
+     <th style="background-image: url('{{asset('resources/assets/images/lvl6.jpg')}}');background-repeat: no-repeat;" scoped="row"><h4><a href="{{route('matieres.show',$mat['id'])}}">{{$mat['name']}}</a></h4><p style="color:white">{{$mat['score']}}/100</p></th>
+  @elseif($mat['score']==100)
+     <th style="background-image: url('{{asset('resources/assets/images/lvl7.jpg')}}');background-repeat: no-repeat;" scoped="row"><h4><a href="{{route('matieres.show',$mat['id'])}}">{{$mat['name']}}</a></h4><p style="color:white">{{$mat['score']}}/100</p></th>
+  @endif
     @foreach($modules as $module)
       @if(strcmp($module['matiere_id'],$mat['id'])==0)
         <td style="background-image: url('{{asset('resources/assets/images/gooddirt.jpg')}}')">
@@ -117,25 +148,25 @@
           @foreach($cours as $cour)
           @if(strcmp($cour['module_id'],$module['id'])==0)
             @if($cour['scoreActuel']<=10)
-         <td><a class="cours" href="#"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/grainz.png')}}" alt=""><p>{{$cour['name']}}</p></a></td>
+         <td><a class="cours" href="#"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/grainz.png')}}" alt=""><p>{{$cour['name']}}</p></a><hr><a style="text-align:center" href="{{route('cours.show',$cour['id'])}}"><img src="{{asset('resources/assets/images/arrosoir.png')}}" class="img-fluid arr" alt="arroser" /></a></td>
             @elseif($cour['scoreActuel']>10 && $cour['scoreActuel']<20)
-         <td style=" background-color: rgba(0, 0, 0, 0.5);min-width:2.5em"><a class="cours" href="#"><img class="img-fluid" style="width:1em" src="" alt=""><p>{{$cour['name']}}</p></a></td>
+         <td style=" background-color: rgba(0, 0, 0, 0.5);min-width:2.5em"><a class="cours" href="#"><img class="img-fluid" style="width:2em" src="" alt=""><p>{{$cour['name']}}</p></a><hr style="margin-top: 210%;"><a style="text-align:center" href="{{route('cours.show',$cour['id'])}}"><img src="{{asset('resources/assets/images/arrosoir.png')}}" class="img-fluid arr" alt="arroser" /></a></td>
             @elseif($cour['scoreActuel']>=20 && $cour['scoreActuel']<30)
-         <td><a  class="cours" href="#"><img class="img-fluid" style="width:1em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""><p>{{$cour['name']}}</p></a></td>
+         <td><a  class="cours" href="#"><img class="img-fluid" style="width:2em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""><p>{{$cour['name']}}</p></a><hr style="margin-top: 210%;"><a style="text-align:center" href="{{route('cours.show',$cour['id'])}}"><img src="{{asset('resources/assets/images/arrosoir.png')}}" class="img-fluid arr" alt="arroser" /></a></td>
             @elseif($cour['scoreActuel']>=30 && $cour['scoreActuel']<40)
-         <td style="background-color: rgba(0, 0, 0, 0.5);"><a class="cours" href="#"><img class="img-fluid" style="width:1em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""><p>{{$cour['name']}}</p></a></td>
+         <td style="background-color: rgba(0, 0, 0, 0.5);"><a class="cours" href="#"><img class="img-fluid" style="width:2em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""><p>{{$cour['name']}}</p></a><hr  style="margin-top: 210%;"><a style="text-align:center" href="{{route('cours.show',$cour['id'])}}"><img src="{{asset('resources/assets/images/arrosoir.png')}}" class="img-fluid arr" alt="arroser" /></a></td>
             @elseif($cour['scoreActuel']>=40 && $cour['scoreActuel']<50)
-         <td><a class="cours" href="#"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""><p>{{$cour['name']}}</p></a></td>
+         <td><a class="cours" href="#"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""><p>{{$cour['name']}}</p></a><hr><a style="text-align:center" href="{{route('cours.show',$cour['id'])}}"><img src="{{asset('resources/assets/images/arrosoir.png')}}" class="img-fluid arr" alt="arroser" /></a></td>
             @elseif($cour['scoreActuel']>=50 && $cour['scoreActuel']<60)
-         <td><a class="cours" href="#"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""><p>{{$cour['name']}}</p></a></td>
+         <td><a class="cours" href="#"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""><p>{{$cour['name']}}</p></a><hr><a style="text-align:center" href="{{route('cours.show',$cour['id'])}}"><img src="{{asset('resources/assets/images/arrosoir.png')}}" class="img-fluid arr" alt="arroser" /></a></td>
             @elseif($cour['scoreActuel']>=60 && $cour['scoreActuel']<70)
-         <td><a class="cours" href="#"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""><p>{{$cour['name']}}</p></a></td>
+         <td><a class="cours" href="#"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""><p>{{$cour['name']}}</p></a><hr><a style="text-align:center" href="{{route('cours.show',$cour['id'])}}"><img src="{{asset('resources/assets/images/arrosoir.png')}}" class="img-fluid arr" alt="arroser" /></a></td>
             @elseif($cour['scoreActuel']>=70 && $cour['scoreActuel']<80)
-         <td><a class="cours" href="#"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/tree.png')}}" alt=""><p>{{$cour['name']}}</p></a></td>
+         <td><a class="cours" href="#"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/tree.png')}}" alt=""><p>{{$cour['name']}}</p></a><hr><a style="text-align:center" href="{{route('cours.show',$cour['id'])}}"><img src="{{asset('resources/assets/images/arrosoir.png')}}" class="img-fluid arr" alt="arroser" /></a></td>
             @elseif($cour['scoreActuel']>=80 && $cour['scoreActuel']<90)
-         <td><a class="cours" href="#"><img class="img-fluid" style="width:4em" src="{{asset('resources/assets/images/arbre_sans_fruit.png')}}" alt=""><p>{{$cour['name']}}</p></a></td>
+         <td><a class="cours" href="#"><img class="img-fluid" style="width:4em" src="{{asset('resources/assets/images/arbre_sans_fruit.png')}}" alt=""><p>{{$cour['name']}}</p></a><hr><a style="text-align:center" href="{{route('cours.show',$cour['id'])}}"><img src="{{asset('resources/assets/images/arrosoir.png')}}" class="img-fluid arr" alt="arroser" /></a></td>
             @elseif($cour['scoreActuel']>=90 && $cour['scoreActuel']<100)
-         <td><a class="cours" href="#"><img class="img-fluid" style="width:4em" src="{{asset('resources/assets/images/arbre_fruit_pas_mur.png')}}" alt=""><p>{{$cour['name']}}</p></a></td>
+         <td><a class="cours" href="#"><img class="img-fluid" style="width:4em" src="{{asset('resources/assets/images/arbre_fruit_pas_mur.png')}}" alt=""><p>{{$cour['name']}}</p></a><hr><a style="text-align:center" href="{{route('cours.show',$cour['id'])}}"><img src="{{asset('resources/assets/images/arrosoir.png')}}" class="img-fluid arr" alt="arroser" /></a></td>
             @elseif($cour['scoreActuel']==100)
          <td><a class="cours" href="#"><img class="img-fluid" style="width:4em" src="{{asset('resources/assets/images/lemon.png')}}" alt=""><p>{{$cour['name']}}</p></a><hr><a style="text-align:center" href="{{route('cours.show',$cour['id'])}}"><img src="{{asset('resources/assets/images/arrosoir.png')}}" class="img-fluid arr" alt="arroser" /></a></td>
             @endif
@@ -190,6 +221,9 @@ text-align: center;
 <script type="text/javascript">
 $(document).ready(function(){
   
+  $('#btnLegende').on('click',function(){
+    $('#laLegende').modal();
+  });
   $('#btnGraine').on('click',function(){
     $('#myModal').modal();
   });

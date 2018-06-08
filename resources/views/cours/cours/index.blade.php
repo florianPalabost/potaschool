@@ -1,8 +1,8 @@
-@extends($user['type']=="enseignant" ? 'defaultEnseignant' : 'defaultEleve')
+@extends(session('user')['type']=="enseignant" ? 'defaultEnseignant' : 'defaultEleve')
 
 @section('content')
   <h1>{{$title}}</h1>
-  @if(strcmp($user['type'],'enseignant')==0)
+  @if(strcmp(session('user')['type'],'enseignant')==0)
   <p><a class="btn btn-primary" href="{{route('cours.create')}}">Ajout Cours</a></p>
   @endif
   <div class="card-columns">

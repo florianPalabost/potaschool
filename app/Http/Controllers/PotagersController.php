@@ -39,8 +39,7 @@ class PotagersController extends Controller
         JOIN cours c on a.idCours=c.id 
         JOIN modules m on c.module_id = m.id 
         JOIN matieres mat on m.matiere_id = mat.id 
-        WHERE a.idEleve = 2 
-        GROUP BY mat.name");
+        WHERE a.idEleve = ".$user['id']." GROUP BY mat.name");
         //dd($scoresMatiere);
         foreach($matieres as $mat){
            // dd($mat->name);
