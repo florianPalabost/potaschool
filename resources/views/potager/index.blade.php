@@ -1,6 +1,5 @@
 @extends('defaultEleve')
 @section('content')
-<h1>POTAGER TODO</h1>
 <div class="lepotager">
        <!-- trigger btn plante graine  -->
        <p><button id="btnGraine" class="graine btn btn-sm" href="{{ route('classes.create') }}"><img src="{{asset('resources/assets/images/grainz.png')}}" style="width: 70px;"><i class="fa fa-plus" style="position:relative;z-index:99"></i></button></p>
@@ -132,7 +131,7 @@
             @elseif($cour['scoreActuel']>=60 && $cour['scoreActuel']<70)
          <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""></a></td>
             @elseif($cour['scoreActuel']>=70 && $cour['scoreActuel']<80)
-         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/pousse.png')}}" alt=""></a></td>
+         <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:2.5em" src="{{asset('resources/assets/images/tree.png')}}" alt=""></a></td>
             @elseif($cour['scoreActuel']>=80 && $cour['scoreActuel']<90)
          <td><a href="{{route('cours.show',$cour['id'])}}"><img class="img-fluid" style="width:4em" src="{{asset('resources/assets/images/arbre_sans_fruit.png')}}" alt=""></a></td>
             @elseif($cour['scoreActuel']>=90 && $cour['scoreActuel']<100)
@@ -159,6 +158,11 @@
 @endsection
 @section('css')
 <style>
+body{
+    background-image: url("{{asset('resources/assets/images/toto.png')}}");
+    background-repeat: no-repeat;
+    /*width:100%;*/
+}
 a{
   color:white;
 }

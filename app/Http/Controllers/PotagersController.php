@@ -105,8 +105,35 @@ class PotagersController extends Controller
     }
 
     public function storeRep(Request $request){
-        dd($request->all());
+        // dd($request->all());
+        $avancementExo =  \App\AvancementExercice::where([['idEleve',$request->get('idEleve')],['idEx',$request->get('idExo')]])->get();
+       // dd($avancementExo);
+        if($avancementExo->count() == 0){
+            // l'eleve n'avait jamais fait l'exo
+            //dd($request->get('idExo'));
+            // peut etre nerf le scoreAct
+            $scoreAct = 100 - ($request->get('nbErreur')*25);
+           // dd($scoreAct);
+            \App\AvancementExercice::create([
+                'idEleve' => $request->get('idEleve'),
+                'idEx' => $request->get('idExo'),
+                'scoreAct' =>$scoreAct,
+                'meilleurScore' => $scoreAct,
+                'nbErreur' => $request->get('nbErreur')
+            ]);
+            $idCours = \App\Exercice::select('idCours')->where('id',$request->get('idExo'))->get();
+            $idClasse = \App\ElAppClas::select('idClasse')->where('idEleve',$request->get('idEleve'))->first();
+            //dd($idClasse['idClasse']);
+            \App\AvancementEleve::where([['idEleve',$request->get('idEleve')],['idCours',$idCours[0]['idCours']],['idClasse',$idClasse['idClasse']]])
+            ->update(['scoreActuel' => $scoreAct]);
+            Session::flash('flash_message', "Bravo la plante a bien été arrosée !"); 
+            return redirect(route('indexPotager'));
+        }
+        else{
+            // l'eleve a au moins deja fait l'exo une fois
+            dd('deja fait un exo ?');
+        }
         //Session::flash('flash_error', "Il manque des informations !");
-        return redirect(route('indexPotager'))->withInput();
+        //return redirect(route('indexPotager'))->withInput();
     }
 }
