@@ -1,4 +1,4 @@
-@extends('defaultEnseignant')
+@extends(session('user')['type']=="enseignant" ? 'defaultEnseignant' : 'defaultEleve')
 
 @section('content')
     <h1>{{$title}}</h1>

@@ -12,7 +12,12 @@
     @if($item->module)
     <div class="card-body">
       <h3>{{$item->module->name}}</h3>
-      <p>{{$item->content}}</p>
+      <p>@if(strlen($item->content) > 135)
+      {{substr($item->content,0,135)}}...
+      @else
+      {{substr($item->content,0,135)}}
+      @endif
+      </p>
     </div>
     @endif
     <div class="card-footer">

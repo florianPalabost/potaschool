@@ -22,9 +22,9 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <style>
-      body {
-        /*padding-top: 54px;*/
-      }
+    body{
+      background-image: url("{{asset('resources/assets/images/frontbackground.jpg')}}");
+    }
       @media (min-width: 992px) {
         body {
           padding-top: 56px;
@@ -80,7 +80,16 @@
             @endif
         </div>
     </nav>
-
+    @if(Session::has('flash_message'))
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+        {{ Session::get('flash_message') }}
+    </div>
+@elseif(Session::has('flash_error'))
+    <div class="alert alert-danger alert-dismissible">{{ Session::get('flash_error') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    @endif
        @if (Route::has('login'))
        <div id="wrapper">
         <!-- Sidebar -->

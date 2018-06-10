@@ -56,7 +56,36 @@ class ElevesController extends Controller
     // liste de tous les eleves 
     public function index(){
         //dd('nothing here');
-        $eleves = \App\User::select('*')->where('type','eleve')->get();
+       // $eleves = \App\User::select('*')->where('type','eleve')->get();
+
+        $eleves = DB::table('el_app_clas')
+        ->join('users','el_app_clas.idEleve','=','users.id')
+       ->get();
+        //dd($eleves);
+        $matieres =\App\Matiere::select('matieres.*')->distinct()->get();
+        //count($eleves);
+        foreach($eleves as $eleve){
+        $avancementExos = \App\AvancementExercice::where('idEleve',$eleve->idEleve)
+        ->join('exercices','avancement_exercices.idEx','=','exercices.id')->get();
+        //dd($avancementExos);
+
+        $scoresMatiere = DB::select("
+        SELECT count(mat.name), mat.name, SUM(a.scoreActuel), ROUND(SUM(a.scoreActuel)/count(mat.name)) as scoreMatiere FROM `avancement_eleves` a 
+        JOIN cours c on a.idCours=c.id 
+        JOIN modules m on c.module_id = m.id 
+        JOIN matieres mat on m.matiere_id = mat.id 
+        WHERE a.idEleve = ".$eleve->idEleve." GROUP BY mat.name");
+        // dd($scoresMatiere);
+        foreach($matieres as $mat){
+        // dd($mat->name);
+            foreach($scoresMatiere as $score){
+                if(strcmp($mat->name,$score->name)==0){
+                    $mat->score = $score->scoreMatiere;
+                }
+            }
+        }
+        $eleve->matieres = $scoresMatiere;
+    }
         return view('users.listEleves',compact('eleves'));
     }
 

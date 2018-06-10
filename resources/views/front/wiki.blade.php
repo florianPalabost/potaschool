@@ -1,4 +1,4 @@
-@extends('default')
+@extends(session('user')['type']=="enseignant" ? 'defaultEnseignant' : 'defaultEleve')
 @section('content')
   <div class="row">
     <h1>Le Wiki</h1>

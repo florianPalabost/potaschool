@@ -74,12 +74,12 @@
         </div>
     </nav>
     @if(Session::has('flash_message'))
-    <div class="alert alert-success alert-dismissible" style="margin-top:65px">
+    <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
         {{ Session::get('flash_message') }}
     </div>
 @elseif(Session::has('flash_error'))
-    <div class="alert alert-danger alert-dismissible"  style="margin-top:65px">{{ Session::get('flash_error') }}
+    <div class="alert alert-danger alert-dismissible">{{ Session::get('flash_error') }}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
     </div>
     @endif

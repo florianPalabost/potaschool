@@ -26,7 +26,7 @@
         <p>prénom : {{$eleve->prenom}}</p>
         <p>email : {{$eleve->email}}</p>
     <h4>Statistiques</h4>
-      @foreach($eleve->matieres as $mat)
+      @forelse($eleve->matieres as $mat)
         <h5>{{$mat->name}}</h5>
         @if($mat->scoreMatiere<50)
           Score : <p style="color:red;display:inline-block"> {{$mat->scoreMatiere}}/100 </p>
@@ -35,8 +35,9 @@
         @else
           Score : <p style="color:green;display:inline-block"> {{$mat->scoreMatiere}}/100 </p>
         @endif
-
-      @endforeach
+      @empty
+      <p style="color:red">L'élève n'a fait aucun exercice !</p>
+      @endforelse
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -1,4 +1,4 @@
-@extends('defaultEnseignant')
+@extends(session('user')['type']=="enseignant" ? 'defaultEnseignant' : 'defaultEleve')
 
 @section('content')
 <h1>{{$cours['name']}}</h1>
@@ -7,8 +7,7 @@
     <p><button id="btnExos" class="btn btn-primary" href="{{ route('classes.create') }}">Ajout Exercice <i class="fa fa-plus" style="position:relative;z-index:99"></i></button></p>
     </div>
     @endif
-<h2>Contenu du cours</h2>
-<p>{!! $cours['content'] !!}</p>
+<p>{!! nl2br($cours['content']) !!}</p>
 <h2>Les exercices disponibles sur le potager</h2>
 @forelse($exercices as $exo)
 <p>{{$exo['titre']}}</p>
@@ -101,7 +100,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Ajoute ton fucking exo
+                                    Ajouter l'exercice
                                 </button>
                             </div>
                         </div>
