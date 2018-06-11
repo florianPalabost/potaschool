@@ -18,7 +18,7 @@ class PotagersController extends Controller
         $classes = \App\ElAppClas::join('classes','el_app_clas.idClasse','=','classes.id')->where('idEleve',$user['id'])->get();
         //dd($classes->count());
         if($classes->count()==0){
-            Session::flash('flash_error', "Il faut que ton enseignant t'es ajouté dans la classe pour pouvoir jouer =(");
+            Session::flash('flash_error', "Il faut que ton enseignant t'ait ajouté dans la classe pour pouvoir jouer =(");
             return redirect(route('index'));
         }
         
@@ -69,12 +69,11 @@ class PotagersController extends Controller
 
     public function findModule() {
           //recherche par id module
-          $query = "select `id`, `nomModule` from `modules` where `matiere_id` like ? LIMIT 10 ";
-          $search = '%'.$_GET['idMatiere'].'%';
+         // $query = "select `id`, `nomModule` from `modules` where `matiere_id` like ? LIMIT 10 ";
+       //   $search = '%'.$_GET['idMatiere'].'%';
           //  dd($search);
-          $results = DB::select("select m.`id`, `nomModule` from `modules` m
+          $results = DB::select("select DISTINCT m.`id`, `nomModule` from `modules` m
           JOIN cours c on m.id = c.module_id
-           JOIN avancement_eleves a on c.id = a.idCours
            where c.id not IN (select idCours from avancement_eleves a where a.idEleve = ".session('user')['id'].") and `matiere_id` = ".$_GET['idMatiere']);
           //dd($results);
           return $results;
@@ -84,7 +83,6 @@ class PotagersController extends Controller
 
           //  dd($search);
           $results = DB::select("select  DISTINCT `id`, `name` from `cours` c
-          JOIN avancement_eleves a on c.id = a.idCours
           where c.id not IN (select idCours from avancement_eleves a where a.idEleve = ".session('user')['id'].") and c.module_id = ".$_GET['idModule']);
           //dd($results);
           return $results;
@@ -203,7 +201,7 @@ class PotagersController extends Controller
             else{
                 // cas ou l'eleve a deja 100 en score act
                 if($scoreAct == $avancementExo[0]['scoreAct']){
-                    Session::flash('flash_message', "Tu as déjà eu le score maximum pour ce cours, la plante n'a pas été arrosée! mais bravo quand même");
+                    Session::flash('flash_message', "Tu as déjà eu le score maximum pour ce cours, la plante n'a pas été arrosée! Mais bravo quand même");
                     return redirect(route('indexPotager')); 
                 }
                 $idCours = \App\Exercice::select('idCours')->where('id',$request->get('idExo'))->get();
@@ -218,7 +216,7 @@ class PotagersController extends Controller
                 ->update([
                     'scoreAct' => $scoreAct-10
                 ]);
-                Session::flash('flash_message', "Tu as réussi l'exercice mais avec un score moins élevé, la plante n'a pas été arrosée! Tu perds des points sur ton score, essaie encore !");
+                Session::flash('flash_message', "Tu as réussi l'exercice, mais avec un score moins élevé, la plante n'a pas été arrosée! Tu perds des points sur ton score, essaie encore !");
                 return redirect(route('indexPotager')); 
             }
 

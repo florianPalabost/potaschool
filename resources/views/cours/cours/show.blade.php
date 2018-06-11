@@ -50,7 +50,7 @@
                           {!!Form::label('label', 'Type Réponse') !!}
                            {!!Form::select('typeRep', [
                             'unique' => 'Unique',
-                            'qcm' => 'QCM'],'qcm',['class' => 'field','id' => 'typeRep']
+                            'qcm' => 'QCM'],'unique',['class' => 'field','id' => 'typeRep']
                           ) !!}
                           @if ($errors->has('typeRep'))
                               <span class="help-block">

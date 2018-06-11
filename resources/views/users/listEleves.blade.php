@@ -17,18 +17,52 @@
         <p>prénom : {{$eleve->prenom}}</p>
         <p>email : {{$eleve->email}}</p>
         <h4>Statistiques</h4>
+        <table class="table">
+      <thead> 
+        <tr>
+          <th scope="col">Matières</th>
+          <th scope="col">Score Matière</th>
+          <th scope="col">Score Actuel</th>
+          <th scope="col">Score Max</th>
+        </tr>
+      </thead>
+      <tbody>
       @forelse($eleve->matieres as $mat)
-        <h5>{{$mat->name}}</h5>
+      <tr>  
+        <td><b>{{$mat->name}}</b></td>
+        <td>
         @if($mat->scoreMatiere<50)
-          Score : <p style="color:red;display:inline-block"> {{$mat->scoreMatiere}}/100 </p>
+         <p style="color:red;display:inline-block"> {{$mat->scoreMatiere}}/100 </p>
         @elseif($mat->scoreMatiere==50)
-          Score : <p style="color:orange;display:inline-block"> {{$mat->scoreMatiere}}/100 </p>
+          <p style="color:orange;display:inline-block"> {{$mat->scoreMatiere}}/100 </p>
         @else
-          Score : <p style="color:green;display:inline-block"> {{$mat->scoreMatiere}}/100 </p>
+          <p style="color:green;display:inline-block"> {{$mat->scoreMatiere}}/100 </p>
         @endif
+        </td>
+        </tr>
+        @forelse($eleve->lesCours as $cours)
+        <tr>
+        @if($mat->id == $cours->matiere_id)
+        <td><p>{{$cours->name}}:</p></td>
+        <td></td>
+          @if($cours->scoreActuel <50)
+            <td><p style="color:red">{{$cours->scoreActuel}}/100</p></td>
+          @else
+            <td><p style="color:green">{{$cours->scoreActuel}}/100</p></td>
+          @endif
+          <td><p>{{$cours->scoreMax}}/100</p></td>
+        @endif
+        @empty
+          <p>Aucun cours commencé</p>
+          @endforelse
+         
+        </tr>
       @empty
       <p style="color:red">L'élève n'a fait aucun exercice !</p>
       @endforelse
+      </tbody>
+
+      </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

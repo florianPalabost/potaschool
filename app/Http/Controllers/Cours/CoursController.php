@@ -46,6 +46,7 @@ class CoursController extends Controller
     public function store(Request $request)
     {
       $cours = \App\Cours::create($request->all());
+      Session::flash('flash_message', "Le cours a bien été ajouté !");
       return redirect(route('cours.index'));
     }
 
@@ -76,7 +77,7 @@ class CoursController extends Controller
      */
     public function edit($id)
     {
-        dd('pas fait edit');
+        dd(' edit');
     }
 
     /**

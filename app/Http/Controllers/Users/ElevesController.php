@@ -15,7 +15,16 @@ class ElevesController extends Controller
     // route : /profil
     public function getProfil(Request $request){
         $user = $request->user()->getAttributes();
-        return view('users/monprofil',compact('user'));
+        if(strcmp($user['type'],'eleve'==0)){
+            $testD =  \App\TestDepart::where('idEleve',$user['id'])->get();
+            if($testD->count()==0){
+                $boolTD = false;
+            }
+            else {
+                $boolTD = true;
+            }
+        }
+        return view('users/monprofil',compact('user','boolTD'));
     }
 
     //route : /testDepart
@@ -70,23 +79,32 @@ class ElevesController extends Controller
         //dd($avancementExos);
 
         $scoresMatiere = DB::select("
-        SELECT count(mat.name), mat.name, SUM(a.scoreActuel), ROUND(SUM(a.scoreActuel)/count(mat.name)) as scoreMatiere FROM `avancement_eleves` a 
+        SELECT count(c.name) as nbCours,count(mat.name), mat.name, mat.id,SUM(a.scoreActuel), ROUND(SUM(a.scoreActuel)/count(mat.name)) as scoreMatiere FROM `avancement_eleves` a 
         JOIN cours c on a.idCours=c.id 
         JOIN modules m on c.module_id = m.id 
         JOIN matieres mat on m.matiere_id = mat.id 
-        WHERE a.idEleve = ".$eleve->idEleve." GROUP BY mat.name");
-        // dd($scoresMatiere);
+        WHERE a.idEleve = ".$eleve->idEleve." GROUP BY mat.name, mat.id");
+
+        $eleveCours = DB::select("SELECT c.name, mat.id, ael.scoreActuel, ael.scoreMax, m.matiere_id FROM `avancement_eleves` ael
+        JOIN cours c on ael.idCours = c.id
+        JOIN modules m on c.module_id = m.id 
+        JOIN matieres mat on m.matiere_id = mat.id 
+        where idEleve = ".$eleve->idEleve); 
+       //dd($scoresMatiere);
         foreach($matieres as $mat){
-        // dd($mat->name);
+           // dd($mat->name);
             foreach($scoresMatiere as $score){
                 if(strcmp($mat->name,$score->name)==0){
                     $mat->score = $score->scoreMatiere;
+                    $mat->nbCours = $score->nbCours;
                 }
             }
         }
         $eleve->matieres = $scoresMatiere;
+        $eleve->lesCours = $eleveCours;
+        //dd($eleve->lesCours);
     }
-        return view('users.listEleves',compact('eleves'));
+        return view('users.listEleves',compact('eleves','matieres'));
     }
 
     public function create(){

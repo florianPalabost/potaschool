@@ -34,7 +34,7 @@ class MatiereController extends Controller
       //$title = "Matière ajoutée";
       $name = \Input::get('name');
       $matiere = \App\Matiere::firstOrCreate(['name'=> $name]);
-      Session::flash('flash_message', "La matière a bien été ajouté !");
+      Session::flash('flash_message', "La matière a bien été ajoutée !");
       return redirect(route('matieres.index'));
     }
 
@@ -49,11 +49,11 @@ class MatiereController extends Controller
       $matiere = \App\Matiere::findOrFail($id);
       //dd($matiere);
       if($matiere->delete()){
-        Session::flash('flash_message', "La matière a bien été supprimé!");
+        Session::flash('flash_message', "La matière a bien été supprimée!");
         return redirect(route('matieres.index'));
       }
       else{
-        Session::flash('flash_error', "ERREUR : La matière n'a pas pu être supprimé!");
+        Session::flash('flash_error', "ERREUR : La matière n'a pas pu être supprimée!");
         return redirect(route('matieres.index'));
       }
     }

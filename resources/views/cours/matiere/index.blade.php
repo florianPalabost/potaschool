@@ -11,8 +11,8 @@
     <div class="card-header bg-primary text-white">
       
       <div class="row">
-        <a class="text-white" href="{{route('matieres.show',$matiere)}}">
-        <h3>{{$matiere->name}}</h3></a>
+        <p class="text-white">
+        <h3>{{$matiere->name}}</h3></p>
         @if(strcmp(session('user')['type'],'enseignant')==0)
         <div class="col-md-3">
           {!! Form::open(array('route' => array('matieres.destroy', $matiere->id), 'method' => 'delete')) !!}

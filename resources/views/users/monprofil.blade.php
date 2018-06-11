@@ -7,6 +7,8 @@
 <p>prénom : {{$user['prenom']}}</p>
 <p>email : {{$user['email']}}</p>
 @if(strcmp($user['type'],'eleve')==0)
-<a href="{{route('testDepart')}}" class="btn btn-info">Test Départ</a>
+  @if($boolTD == false)
+  <a href="{{route('testDepart')}}" class="btn btn-info">Test Départ</a>
+  @endif
 @endif
 @endsection
