@@ -24,18 +24,24 @@ Auth::routes();
 
 // Route en mode Connecté
 Route::get('/profil','Users\ElevesController@getProfil')->name('monprofil');
-Route::resource('eleves','Users\ElevesController',['except' => ['show','index']]);
+
+Route::resource('eleves','Users\ElevesController');
 
 //route enseignant
 Route::get('/dashboard','Users\EnseignantsController@showDashboard')->name('dashboard');
+Route::resource('classes','ClassesController');
+Route::get('medicaments/rech','Users\ElevesController@rechEleve')->name('rechEleve');
 
-Route::group(['prefix' => 'cours'],function(){
-
+Route::group([],function(){
+/*
     Route::get('/matiere','Cours\MatiereController@getList')->name('matiereList');
     Route::get('/matiere/add','Cours\MatiereController@add')->name('newMatiere');
     Route::post('/matiere/add','Cours\MatiereController@save')->name('saveMatiere');
     Route::get('/matiere/{id}','Cours\MatiereController@get')->where('id','[0-9]+')->name('seeMatiere');
+*/
 
+    Route::resource('exercices','Cours\ExercicesController');
+    Route::resource('matieres','Cours\MatiereController');
     Route::resource('module','Cours\ModuleController');
     Route::resource('cours','Cours\CoursController');
 
@@ -44,5 +50,17 @@ Route::group(['prefix' => 'cours'],function(){
 // Route pour le test de depart
 Route::get('/testDepart','Users\ElevesController@showTestDepart')->name('testDepart');
 Route::post('/testDepart','Users\ElevesController@storeTestDepart')->name('storeTestDepart');
+
+// Routes pour le potager
+Route::get('/potager', 'PotagersController@index')->name('indexPotager');
+Route::get('/potager/findExercices', 'PotagersController@findExercices')->name('findExercices');
+Route::get('/potager/findExercice', 'PotagersController@findExo')->name('findExo');
+Route::get('/potager/findModule', 'PotagersController@findModule')->name('findModule');
+Route::get('/potager/findCours', 'PotagersController@findCours')->name('findCours');
+Route::get('/potager/findTheCours', 'PotagersController@findTheCours')->name('findTheCours');
+Route::POST('/potager/addGraine', 'PotagersController@storeGraine')->name('storeGraine');
+Route::POST('/potager/stroreRep', 'PotagersController@storeRep')->name('storeRep');
+
+
 
 Route::get('/home', 'HomeController@index')->name('home');

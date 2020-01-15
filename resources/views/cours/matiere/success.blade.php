@@ -1,4 +1,4 @@
-@extends('default')
+@extends('defaultEnseignant')
 
 @section('content')
     <h1>{{$title}}</h1>

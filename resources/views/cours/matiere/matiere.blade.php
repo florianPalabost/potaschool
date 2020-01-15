@@ -1,9 +1,9 @@
-@extends('default')
+@extends(session('user')['type']=="enseignant" ? 'defaultEnseignant' : 'defaultEleve')
 
 @section('content')
     <h1>{{$title}}</h1>
     <p>
-        Bravo Greg !
+        route useless
     </p>
 @endsection
 

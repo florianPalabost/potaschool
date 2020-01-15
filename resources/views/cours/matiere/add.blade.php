@@ -1,8 +1,8 @@
-@extends('default')
+@extends('defaultEnseignant')
 
 @section('content')
     <h1>{{$title}}</h1>
-    <form action="" method="post">
+    <form action="{{route('matieres.store')}}" method="post">
       <div class="form-group">
         <input type="hidden" name="_token" value="{{csrf_token()}}"
           <label for="name">Nom de la nouvelle Matière</label>

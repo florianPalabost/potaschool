@@ -8,8 +8,8 @@ if($module->id){
 
 {!!Form::model($module,$options)!!}
 <div class="form-group">
-    {{ Form::label('name','Nom')}}
-    {{ Form::text('name',null,['class'=>'form-control'])}}
+    {{ Form::label('nomModule','Nom')}}
+    {{ Form::text('nomModule',null,['class'=>'form-control'])}}
 </div>
 <div class="form-group">
     {{ Form::label('matiere_id','Matière')}}

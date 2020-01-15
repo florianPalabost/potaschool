@@ -1,15 +1,11 @@
-@extends('default')
+@extends(session('user')['type']=="enseignant" ? 'defaultEnseignant' : 'defaultEleve')
 @section('content')
 <div class="row">
-  <h1>PotaSchool</h1>
+
 </div>
 <div class="row">
   <div class="col-md-6">
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quia ex magnam! Velit tempore ut libero, debitis odit ducimus voluptatibus sequi, voluptas quisquam tempora quo asperiores perspiciatis nam quas numquam.
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, minus odit aut aperiam veniam, assumenda natus beatae dignissimos itaque animi facere facilis tenetur nemo eaque nostrum dolores consequuntur id iusto.
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam qui distinctio ad! Ratione esse, optio praesentium eum tempore numquam asperiores, cupiditate cumque consequatur laudantium non, unde libero dignissimos deserunt sunt.
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam asperiores error ullam temporibus necessitatibus impedit totam architecto corporis, recusandae soluta provident praesentium quod magni aliquid in vel repellat quos? Aut!
-    </p>
+    <p><img class="img-fluid" src="{{asset('resources/assets/images/garden.png')}}" alt=""></p>
   </div>
   <div class="col-md-6">
   @if (!(Auth::check()))
@@ -50,4 +46,11 @@
     @endif
   </div>
 </div>
+@endsection
+@section('css')
+<style>
+body{
+  background-image: url("{{asset('resources/assets/images/frontbackground.jpg')}}");
+}
+</style>
 @endsection

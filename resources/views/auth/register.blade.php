@@ -77,15 +77,47 @@
                             </div>
                         </div>
 
-                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                         <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
                             <label for="type" class="col-md-4 control-label">Vous êtes</label>
 
                             <div class="col-md-6">
-                                {!! Form::select('type', ['eleve' => 'Elève', 'enseignant' => 'Enseignant'],null , ['class' => 'form-control']); !!}
+                                {!! Form::select('type', ['eleve' => 'Elève', 'enseignant' => 'Enseignant'],null , ['class' => 'form-control','id' =>'typeUser']); !!}
 
-                                @if ($errors->has('email'))
+                                @if ($errors->has('type'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('type') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('eleve') ? ' has-error' : '' }}" id="listClassesBlock" style="display:none">
+                            <label for="eleve" class="col-md-4 control-label">Vous voulez rejoindre la classe</label>
+
+                            <div class="col-md-6">
+                                <select data-placeholder="Choisir la classe..."  class="chosen form-control" style="" tabindex="4" id="eleve" name="eleve">
+                                    @foreach($classes as $key => $value)
+                                        <option value="{{$value}}">{{$value}}</option>
+                                     @endforeach
+                                </select>
+
+                                @if ($errors->has('eleve'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('eleve') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('mdp') ? ' has-error' : '' }}" id="mdpBlock" style="display:none">
+                            <label for="mdp" class="col-md-4 control-label">Mot de passe</label>
+
+                            <div class="col-md-6">
+                                <input id="mdp" type="text" class="form-control" name="mdp">
+
+                                @if ($errors->has('mdp'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('mdp') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -104,4 +136,23 @@
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script type="text/javascript">
+$("#typeUser").on('change',function(){
+    var val = $(this).val();
+    if(val == "eleve"){
+        console.log('eleve ok');
+        $("#listClassesBlock").show();
+        $("#listClassesBlock").on('change',function(){
+            console.log('on est dans le select classe');
+        });
+        $("#mdpBlock").show();
+    }
+    else{
+        $("#listClassesBlock").hide();
+        $("#mdpBlock").hide();
+    }
+});
+</script>
 @endsection

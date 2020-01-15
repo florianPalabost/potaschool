@@ -1,12 +1,28 @@
-@extends('default')
+@extends(session('user')['type']=="enseignant" ? 'defaultEnseignant' : 'defaultEleve')
 
 @section('content')
   <h1>{{$title}}</h1>
-  <p><a class="btn btn-primary" href="{{route('newMatiere')}}">Ajout Matière</a></p>
+  @if(strcmp(session('user')['type'],'enseignant')==0)
+  <p><a class="btn btn-primary" href="{{route('matieres.create')}}">Ajout Matière</a></p>
+  @endif
   <div class="card-columns">
   @forelse($list as $matiere)
   <div class="card ">
-    <div class="card-header bg-primary text-white"><a class="text-white" href="{{route('seeMatiere',$matiere)}}"><h2>{{$matiere->name}}</a></h2></div>
+    <div class="card-header bg-primary text-white">
+      
+      <div class="row">
+        <p class="text-white">
+        <h3>{{$matiere->name}}</h3></p>
+        @if(strcmp(session('user')['type'],'enseignant')==0)
+        <div class="col-md-3">
+          {!! Form::open(array('route' => array('matieres.destroy', $matiere->id), 'method' => 'delete')) !!}
+          {!!Form::hidden('id',$matiere->id)!!}
+          <button type="submit"  class="btn btn-danger" onclick="return confirm('Voulez vous vraiment supprimer cette matière ?');"><i class="far fa-trash-alt"></i></button>
+          {!! Form::close() !!}
+        </div>
+        @endif
+      </div>
+    </div>
   </div>
   @empty
     <h2>Aucune Matière</h2>
