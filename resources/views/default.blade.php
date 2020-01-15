@@ -8,7 +8,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>PotaSchool</title>
+    <title>
+      @section('title')
+        PotaSchool
+      @show
+    </title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
@@ -63,7 +67,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @if (Auth::check())
-                        <a href="{{ url('/home') }}">Mon Profil</a>
+
                         {{ Form::open(array('url' => '/logout','style'=>'display: inline-block;')) }}
                         {{ Form::button('Se déconnecter', array('class'=>'btn btn-danger deco', 'type'=>'submit')) }}
                         {{ Form::close() }}
@@ -82,32 +86,24 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
+            @if (Auth::check())
                 <li class="sidebar-brand">
-                    <a href="#">
-                        Start Bootstrap
-                    </a>
+                <a href="{{ url('/profil') }}">Mon Profil</a>
                 </li>
-                <li>
-                    <a href="#">Dashboard</a>
+                <li class="sidebar-brand">
+                <a href="{{ url('/cours/matiere') }}">Matières</a>
                 </li>
-                <li>
-                    <a href="#">Shortcuts</a>
+                <li class="sidebar-brand">
+                <a href="{{ url('/cours/module') }}">Modules</a>
                 </li>
-                <li>
-                    <a href="#">Overview</a>
+                <li class="sidebar-brand">
+                <a href="{{ url('/cours/cours') }}">Cours</a>
                 </li>
-                <li>
-                    <a href="#">Events</a>
+                <li class="sidebar-brand">
+                <a href="{{ url('/cours/exercice') }}">Exercice</a>
                 </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
+            @endif
+                @yield('sidebar')
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -115,7 +111,7 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
       <div class="container" style="margin-top:60px">
-      
+
 </span></a>
         @yield('content')
       </div>
@@ -133,4 +129,3 @@
     @yield('script')
   </body>
 </html>
-
